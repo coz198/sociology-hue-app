@@ -1,4 +1,4 @@
-package com.sociologyhue;
+package com.keetool.app.sociologyhue;
 
 import android.app.Application;
 

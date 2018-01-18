@@ -79,7 +79,6 @@ class BlogContainer extends Component {
                                 <View style={[general.wrapperCenter, {marginTop: 20}]}>
                                     <Text style={[general.textTitleBig, {paddingLeft: 50, paddingRight: 50}]} numberOfLines={1}>
                                         Title
-
                                     </Text>
                                 </View>
                             </View>
@@ -87,7 +86,7 @@ class BlogContainer extends Component {
                     )}
                     renderFixedHeader={() => (
                         <View key="fixed-header" style={general.wrapperIconFixedHeader}>
-                            <Left style={Platform.OS === 'ios' ? {marginTop: 30} : {marginTop: 20}}>
+                            <Left style={Platform.OS === 'ios' ? {marginTop: 30} : {marginTop: 10}}>
                                 <BackButton goBack={goBack}/>
                             </Left>
                         </View>

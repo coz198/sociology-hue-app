@@ -14,8 +14,6 @@ class DrawerContainer extends Component {
             setThemeDark: false
         }
     }
-
-
     render() {
         const {navigate} = this.props.navigation;
         return (

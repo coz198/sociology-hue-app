@@ -1,4 +1,4 @@
-package com.sociologyhue;
+package com.keetool.app.sociologyhue;
 
 import com.facebook.react.ReactActivity;
 

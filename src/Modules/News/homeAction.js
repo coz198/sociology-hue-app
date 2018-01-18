@@ -1,42 +1,73 @@
-import * as types from '../../Constants/actionTypes'
+import * as homeApi from './homeApi';
+import * as types from '../../Constants/actionTypes';
 
-export function getData() {
+export function getListBlog(page) {
+    return (dispatch) => {
+        dispatch({
+            type: types.BEGIN_GET_LIST_BLOG
+        });
+        homeApi.listBlogApi(page)
+            .then(function (res) {
+                dispatch({
+                    type: types.GET_LIST_BLOG_SUCCESS,
+                    blogs: res.data.blogs
+                });
+                console.log(res.data.blogs)
+            })
+            .catch(function (error) {
+                throw (error);
+            });
+    }
+}
+export function beginRefreshNewFeed() {
     return {
-        type: types.GET_NEWS,
-        news: [
-
-            {
-                "url": "https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?auto=format&fit=crop&w=334&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D",
-                "title": "THIS IS SAMPLE TEXT",
-                "description": "Sample description goes here",
-                "created_at": "24h ago"
-            },
-            {
-                "url": "https://images.unsplash.com/photo-1507537362848-9c7e70b7b5c1?auto=format&fit=crop&w=750&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D",
-                "title": "THIS IS SAMPLE TEXT",
-                "description": "Sample description goes here",
-                "created_at": "24h ago"
-            },
-            {
-                "url": "https://images.unsplash.com/photo-1501159873713-dc65286617cc?auto=format&fit=crop&w=750&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D",
-                "title": "THIS IS SAMPLE TEXT",
-                "description": "Sample description goes here",
-                "created_at": "24h ago"
-            },
-            {
-                "url": "https://images.unsplash.com/photo-1485436442739-c12c6e3673af?auto=format&fit=crop&w=553&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D",
-                "title": "THIS IS SAMPLE TEXT",
-                "description": "Sample description goes here",
-                "created_at": "24h ago"
-            },
-            {
-                "url": "https://images.unsplash.com/photo-1485893226355-9a1c32a0c81e?auto=format&fit=crop&w=500&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D",
-                "title": "THIS IS SAMPLE TEXT",
-                "description": "Sample description goes here",
-                "created_at": "24h ago"
-            },
-
-        ]
+        type: types.BEGIN_REFRESH_NEW_FEED,
+        isRefreshing: true,
     }
 }
 
+export function refreshNewFeedSuccess(response) {
+    return {
+        type: types.REFRESH_NEW_FEED_SUCCESS,
+        blogs: response.data.blogs,
+        isRefreshing: false,
+    }
+}
+
+export function refreshNewFeedError() {
+    return {
+        type: types.REFRESH_NEW_FEED_ERROR,
+        isRefreshing: false
+    }
+}
+
+export function refreshNewFeed(page) {
+    return (dispatch) => {
+        dispatch(beginRefreshNewFeed());
+        homeApi.listBlogApi(page)
+            .then(function (response) {
+                dispatch(refreshNewFeedSuccess(response));
+            })
+            .catch(function (error) {
+                dispatch(refreshNewFeedError(error));
+            })
+    }
+}
+export function getMoreListBlog(page) {
+    return (dispatch) => {
+        dispatch({
+            type: types.BEGIN_GET_MORE_LIST_BLOG
+        });
+        homeApi.listBlogApi(page)
+            .then(function (res) {
+                dispatch({
+                    type: types.GET_MORE_LIST_BLOG_SUCCESS,
+                    blogs: res.data.blogs,
+                });
+                console.log(res.data.blogs)
+            })
+            .catch(function (error) {
+                throw (error);
+            });
+    }
+}

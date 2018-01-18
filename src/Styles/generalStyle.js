@@ -70,6 +70,7 @@ export const style = {
     },
     imageInHeader:{
         height: 30,
+        width: 170,
     },
     wrapperHeader: {
         height: Platform.OS === 'android' ? 70 : 90,
@@ -163,10 +164,17 @@ export const style = {
     wrapperRowSpaceBetween: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'center'
     },
     wrapperRowCenter: {
         flexDirection: 'row',
         alignItems: 'center',
+    },
+    wrapperSearchForm: {
+        width: wid - 40,
+        borderWidth: 1,
+        borderColor: color.textColorNotActive,
+        height: 50,
     },
     wrapperIconDrawer: {
         height: 30,
@@ -179,6 +187,8 @@ export const style = {
         flexDirection: 'row',
     },
     wrapperCardBook: {
+        borderWidth: 1,
+        borderColor: color.textColorNotActive,
         flexDirection: 'row',
         flex: 1,
 
@@ -461,6 +471,7 @@ export const style = {
         padding: 10,
         backgroundColor: color.blue,
         alignItems: 'center',
+        justifyContent: 'center',
         flexDirection: 'row',
     },
     wrapperTextDownImage:{
@@ -682,7 +693,6 @@ export const style = {
         marginBottom: 10
     },
     shadow: {
-        elevation: 1,
         shadowColor: color.shadowColor,
         shadowOffset: {width: 0, height: 3},
         shadowOpacity: 0.3,
@@ -713,7 +723,9 @@ export const style = {
         position: 'absolute',
         backgroundColor: color.mainColor,
         padding: 5,
-        borderRadius: 10,
+        paddingLeft: 10,
+        paddingRight: 10,
+        borderRadius: 13,
         overflow: "hidden"
     },
 
@@ -776,6 +788,9 @@ export const style = {
         borderTopWidth: 0.5,
         borderColor: 'rgba(214,214,214, 0.6)',
     },
+    textInputSearch:{
+       width: wid - 140
+    },
     wrapperItemTrello: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -820,7 +835,23 @@ export const style = {
         height: 30,
         borderRadius: 20,
     },
-
+    buttonSearch:{
+        position: 'absolute',
+        bottom: 20,
+        right: 10,
+        backgroundColor:color.mainColor,
+        width: 60,
+        height: 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 30,
+    },
+    buttonSelect:{
+        width: 100,
+        height: 48,
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+    },
     buttonSmall:{
         backgroundColor:color.mainColor,
         height: 30,
