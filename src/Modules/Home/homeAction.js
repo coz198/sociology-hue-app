@@ -19,40 +19,27 @@ export function getListBlog(page) {
             });
     }
 }
-export function beginRefreshNewFeed() {
-    return {
-        type: types.BEGIN_REFRESH_NEW_FEED,
-        isRefreshing: true,
-    }
-}
 
-export function refreshNewFeedSuccess(response) {
-    return {
-        type: types.REFRESH_NEW_FEED_SUCCESS,
-        blogs: response.data.blogs,
-        isRefreshing: false,
-    }
-}
-
-export function refreshNewFeedError() {
-    return {
-        type: types.REFRESH_NEW_FEED_ERROR,
-        isRefreshing: false
-    }
-}
-
-export function refreshNewFeed(page) {
+export function refreshListBlog() {
     return (dispatch) => {
-        dispatch(beginRefreshNewFeed());
-        homeApi.listBlogApi(page)
-            .then(function (response) {
-                dispatch(refreshNewFeedSuccess(response));
+        dispatch({
+            type: types.BEGIN_REFRESH_NEW_FEED
+        });
+        homeApi.listBlogApi(1)
+            .then(function (res) {
+                dispatch({
+                    type: types.REFRESH_NEW_FEED_SUCCESS,
+                    blogs: res.data.blogs,
+                });
             })
             .catch(function (error) {
-                dispatch(refreshNewFeedError(error));
+                dispatch({
+                    type: types.REFRESH_NEW_FEED_ERROR,
+                });
             })
     }
 }
+
 export function getMoreListBlog(page) {
     return (dispatch) => {
         dispatch({
@@ -64,7 +51,6 @@ export function getMoreListBlog(page) {
                     type: types.GET_MORE_LIST_BLOG_SUCCESS,
                     blogs: res.data.blogs,
                 });
-                console.log(res.data.blogs)
             })
             .catch(function (error) {
                 throw (error);

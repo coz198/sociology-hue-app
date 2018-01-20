@@ -8,16 +8,16 @@ class HeaderImage extends Component{
     render(){
         return(
             <View style={[general.wrapperHeader, general.paddingBorder]}>
-                <TouchableOpacity style={{flex: 1}}>
+                <TouchableOpacity
+                    style={{flex: 1}}
+                >
                     <Image
                         resizeMode={'contain'}
                         source={this.props.imageURL}
                         style={[general.imageInHeader, {height: 30, width: 180}]}
                     />
                 </TouchableOpacity>
-                <Right>
-                    <HamburgerButton navigate={this.props.navigate}/>
-                </Right>
+                <HamburgerButton navigate={this.props.navigate}/>
             </View>
         );
     }

@@ -11,9 +11,7 @@ class Header extends Component{
                 <Text style={[general.textTitleHeader]}>
                     {this.props.title}
                 </Text>
-                <Right>
-                    <HamburgerButton navigate={this.props.navigate}/>
-                </Right>
+                <HamburgerButton navigate={this.props.navigate}/>
             </View>
         );
     }

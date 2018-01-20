@@ -37,7 +37,7 @@ export default function libraryReducer(state = initialState.book, action) {
             return {
                 ...state,
                 ...{
-                    isLoading: true,
+                    isLoadingTypeBook: true,
                 }
             };
         case types.GET_TYPE_BOOK_SUCCESS:
@@ -45,11 +45,40 @@ export default function libraryReducer(state = initialState.book, action) {
                 ...state,
                 ...{
                     typeBooks: action.typeBooks,
-                    isLoading: false,
+                    isLoadingTypeBook: false,
                 }
             };
-
-
+        case types.BEGIN_REFRESH_LIST_BOOK :
+            return {
+                ...state,
+                ...{
+                    isRefreshing : true
+                }
+            };
+        case types.REFRESH_LIST_BOOK_SUCCESS: {
+            let array1 = state.books.slice(0, 12);
+            let array2 = action.books;
+            let array3 = [];
+            for (let i = 0; i < 13; i++) {
+                if (array2[i].id !== array1[i].id) {
+                    array3.push(array2[i]);
+                }
+            }
+            return {
+                ...state,
+                ...{
+                    isRefreshing: false,
+                    books: [array3, ...state.books]
+                }
+            }
+        }
+        case types.REFRESH_LIST_BOOK_ERROR:
+            return {
+                ...state,
+                ...{
+                    isRefreshing : false
+                }
+            };
         default:
             return state
     }

@@ -716,7 +716,9 @@ export const style = {
         right: 10,
         backgroundColor: color.mainColor,
         padding: 5,
-        borderRadius: 10,
+        paddingLeft: 10,
+        paddingRight: 10,
+        borderRadius: 13,
         overflow: "hidden"
     },
     categoryAbsolute:{
@@ -732,7 +734,9 @@ export const style = {
     category:{
         backgroundColor: color.mainColor,
         padding: 5,
-        borderRadius: 10,
+        paddingLeft: 10,
+        paddingRight: 10,
+        borderRadius: 13,
         overflow: "hidden"
     },
     wrapperDeadline: {
@@ -789,7 +793,7 @@ export const style = {
         borderColor: 'rgba(214,214,214, 0.6)',
     },
     textInputSearch:{
-       width: wid - 140
+       flex: 1
     },
     wrapperItemTrello: {
         alignItems: 'center',
@@ -847,10 +851,9 @@ export const style = {
         borderRadius: 30,
     },
     buttonSelect:{
-        width: 100,
         height: 48,
         justifyContent: 'center',
-        alignItems: 'flex-end',
+        alignItems: 'flex-start',
     },
     buttonSmall:{
         backgroundColor:color.mainColor,

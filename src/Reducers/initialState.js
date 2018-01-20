@@ -2,8 +2,8 @@ export default {
     home:{
         isLoading: false,
         isLoadingMore: false,
-        blogs: [],
         isRefreshing : false,
+        blogs: [],
     },
     blog:{
         isLoading: false,
@@ -14,6 +14,8 @@ export default {
         books: [],
         typeBooks: [],
         isLoadingMore : false,
+        isRefreshing : false,
+        isLoadingTypeBook : false,
         status : 0,
     },
 }

@@ -16,7 +16,6 @@ const parallaxStyle = StyleSheet.create({
     stickySection: {
         alignItems: 'center',
         height: size.STICKY_HEADER_HEIGHT,
-        justifyContent: 'center',
         backgroundColor: '#fff'
     },
     parallaxHeader: {

@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import {Platform, StatusBar, Image, Switch, Text, TouchableOpacity, View} from 'react-native';
 import {Container, Content} from 'native-base';
-import * as size from '../../Styles/size';
 import general from '../../Styles/generalStyle';
 import {connect} from 'react-redux';
-import Icon from '../../Commons/Icon';
 
 class DrawerContainer extends Component {
     constructor() {
@@ -19,36 +17,29 @@ class DrawerContainer extends Component {
         return (
             <Container style={general.wrapperContainer}>
                 <StatusBar
-                    barStyle={"dark-content"}
-                    backgroundColor={"#FFFFFF"}
+                    barStyle={Platform.OS === 'ios' ? "dark-content" : "light-content"}
+                    backgroundColor={"#c50000"}
                 />
                 <Content style={general.padding}>
                     <View style={[general.wrapperLogoInDrawer]}>
                         <Image resizeMode={'contain'}
-                               source={{uri: 'http://d1j8r0kxyu9tj8.cloudfront.net/files/1513241627VqTNu2QuUiqvs9X.png'}}
+                               source={require('../../../assets/image/logo.png')}
                                style={[general.imageInDrawer]}
                         />
                     </View>
                     <TouchableOpacity
-                        style={general.itemTabInDrawer}
                         onPress={() => navigate('Home')}
                     >
-                        <View style={general.wrapperRowCenter}>
-                            <Text style={[general.textTitleCard, general.paddingLR]}>Home</Text>
-                        </View>
+                            <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Home</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={general.itemTabInDrawer}
                         onPress={() => navigate('Library')}
                     >
-                        <View style={general.wrapperRowCenter}>
-                            <Text style={[general.textTitleCard, general.paddingLR]}>Library</Text>
-                        </View>
+                            <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Library</Text>
                     </TouchableOpacity>
 
                     <View style={general.wrapperBottomModule}/>
                 </Content>
-
             </Container>
         );
     }

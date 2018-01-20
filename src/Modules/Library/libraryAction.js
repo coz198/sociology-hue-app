@@ -20,6 +20,27 @@ export function getBook() {
     }
 }
 
+export function refreshListBook() {
+    return (dispatch) => {
+        dispatch({
+            type: types.BEGIN_REFRESH_LIST_BOOK
+        });
+        libraryApi.libraryLoadMoreApi(1)
+            .then(function (res) {
+                dispatch({
+                    type: types.REFRESH_LIST_BOOK_SUCCESS,
+                    books: res.data.blogs,
+                });
+            })
+            .catch(function (error) {
+                dispatch({
+                    type: types.REFRESH_LIST_BOOK_ERROR,
+                });
+            })
+    }
+}
+
+
 export function getMoreListBook(page) {
     return (dispatch) => {
         dispatch({

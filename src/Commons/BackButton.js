@@ -15,7 +15,7 @@ class BackButton extends Component{
                 onPress={() => this.props.goBack(null)}
             >
                 <Icon name="entypo|chevron-thin-left"
-                      size={size.iconBig}
+                      size={25}
                       color={color.iconColor}
                 />
             </TouchableOpacity>

@@ -37,14 +37,14 @@ export default function homeReducer(state = initialState.home, action) {
             return {
                 ...state,
                 ...{
-                    isRefreshing : action.isRefreshing
+                    isRefreshing : true
                 }
             };
         case types.REFRESH_NEW_FEED_SUCCESS: {
-            let array1 = state.blogs.slice(0, 11);
+            let array1 = state.blogs.slice(0, 6);
             let array2 = action.blogs;
             let array3 = [];
-            for (let i = 0; i < 11; i++) {
+            for (let i = 0; i < 7; i++) {
                 if (array2[i].id !== array1[i].id) {
                     array3.push(array2[i]);
                 }
@@ -52,19 +52,18 @@ export default function homeReducer(state = initialState.home, action) {
             return {
                 ...state,
                 ...{
-                    isRefreshing: action.isRefreshing,
+                    isRefreshing: false,
                     blogs: [array3, ...state.blogs]
                 }
             }
         }
-        case types.REFRESH_NEW_FEED_ERROR:{
+        case types.REFRESH_NEW_FEED_ERROR:
             return {
                 ...state,
                 ...{
-                    isRefreshing : action.isRefreshing
+                    isRefreshing : false
                 }
-            }
-        }
+            };
         default:
             return state
     }

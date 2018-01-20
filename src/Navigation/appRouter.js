@@ -1,6 +1,6 @@
 import {TabNavigator, StackNavigator, DrawerNavigator} from 'react-navigation';
 import * as size from '../Styles/size';
-import HomeContainer from '../Modules/News/HomeContainer';
+import HomeContainer from '../Modules/Home/HomeContainer';
 import BlogContainer from '../Modules/Blog/BlogContainer';
 import LibraryContainer from '../Modules/Library/LibraryContainer';
 import DrawerContainer from '../Modules/Drawer/DrawerContainer';

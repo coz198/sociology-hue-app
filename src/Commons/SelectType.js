@@ -13,8 +13,8 @@ export default class App extends Component{
             clicked: "Thể loại sách",
         }
     }
-
     render(){
+        const {typeBook} = this.props;
         let BUTTONS = this.props.typeBooks ? this.props.typeBooks : [];
         return(
             <Root>
@@ -27,7 +27,7 @@ export default class App extends Component{
                                 title: "Chọn loại sách"
                             },
                             buttonIndex => {
-                                this.setState({ clicked: BUTTONS[buttonIndex].replace('\n', '').replace('\n\n', '') });
+                                this.setState({ clicked: BUTTONS[buttonIndex].trim()});
                             }
                         )}
                 >
