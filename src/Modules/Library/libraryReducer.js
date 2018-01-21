@@ -33,6 +33,37 @@ export default function libraryReducer(state = initialState.book, action) {
                     isLoadingMore: false,
                 }
             };
+        case types.BEGIN_SEARCH_BOOK:
+            return {
+                ...state,
+                ...{
+                    isLoadingSearch: true,
+                }
+            };
+        case types.SEARCH_BOOK_SUCCESS:
+            return {
+                ...state,
+                ...{
+                    books: action.books,
+                    isLoadingSearch: false,
+                }
+            };
+        case types.BEGIN_SEARCH_MORE_BOOK:
+            return {
+                ...state,
+                ...{
+                    isLoadingMore: true,
+                }
+            };
+        case types.SEARCH_MORE_BOOK_SUCCESS:
+            return {
+                ...state,
+                ...{
+                    books: [...state.books, ...action.books],
+                    isLoadingMore: false,
+                }
+            };
+
         case types.BEGIN_GET_TYPE_BOOK:
             return {
                 ...state,

@@ -1,8 +1,6 @@
 import React from 'react';
 import {WebView, View, Text, Dimensions} from "react-native";
 import PropTypes from 'prop-types';
-
-
 const BODY_TAG_PATTERN = /\<\/ *body\>/;
 
 var script = `
@@ -49,6 +47,7 @@ body, html {
     right: 0;
 }
 p{
+    font-family: Montserrat !important;
     font-size: 15px;
     padding-left: 20px;
     padding-right: 20px;
@@ -57,6 +56,7 @@ h1, h2, h3, h4, h5, h6{
     padding-left: 20px;
     padding-right: 20px;
     font-weight: 500;
+    font-family: Montserrat !important;
 }
 h1, h2 {
     font-size: 20px;
@@ -68,16 +68,19 @@ h5, h6 {
     font-size: 16px;
 }
 ul li:{
+    font-family: Montserrat !important;
     font-size: 15px;
     padding-left: 20px;
     padding-right: 20px;
 }
 ol li:{
+    font-family: Montserrat !important;
     padding-left: 20px;
     padding-right: 20px;
 }
 
 table, th, td{
+    font-family: Montserrat !important;
     margin: 5px;
     padding: 5px;
     border: 1px solid black;
@@ -89,6 +92,7 @@ p.wrapperImg{
     padding-right: 0;
 }
 table:{
+    font-family: Montserrat !important;
     margin: 10px;
     padding: 10px;
 }

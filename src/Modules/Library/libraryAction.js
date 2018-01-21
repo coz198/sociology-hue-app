@@ -12,6 +12,43 @@ export function getBook() {
                     type: types.GET_LIST_BOOK_SUCCESS,
                     books: res.data.books,
                 });
+            })
+            .catch(function (error) {
+                throw (error);
+            });
+    }
+}
+
+export function searchBook(page, text) {
+    return (dispatch) => {
+        dispatch({
+            type: types.BEGIN_SEARCH_BOOK
+        });
+        libraryApi.searchBook(page, text)
+            .then(function (res) {
+                dispatch({
+                    type: types.SEARCH_BOOK_SUCCESS,
+                    books: res.data.books,
+                });
+                console.log(res.data.books)
+            })
+            .catch(function (error) {
+                throw (error);
+            });
+    }
+}
+
+export function searchMoreBook(page, text) {
+    return (dispatch) => {
+        dispatch({
+            type: types.BEGIN_SEARCH_MORE_BOOK
+        });
+        libraryApi.searchBook(page, text)
+            .then(function (res) {
+                dispatch({
+                    type: types.SEARCH_MORE_BOOK_SUCCESS,
+                    books: res.data.books,
+                });
                 console.log(res.data.books)
             })
             .catch(function (error) {

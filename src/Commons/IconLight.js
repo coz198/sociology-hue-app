@@ -8,7 +8,7 @@ class IconName extends Component{
     render(){
         return(
             <TouchableOpacity
-                activeOpacity={1}
+                activeOpacity={0.9}
                 onPress={this.props.action}>
                 <Icon
                     name={this.props.name}

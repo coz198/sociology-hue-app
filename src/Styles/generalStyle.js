@@ -226,7 +226,7 @@ export const style = {
         fontFamily: 'Montserrat-Regular',
         fontSize: size.defaultText,
     },
-    textIstActive: {
+    textIsActive: {
         color: color.textColor,
         fontFamily: 'Montserrat-Regular',
         fontSize: size.defaultText,
@@ -406,6 +406,15 @@ export const style = {
         backgroundColor: 'rgba(0, 0, 0, 0.7)',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    wrapperModalBottom: {
+        width: wid,
+        height: hei / 2,
+        backgroundColor: "#FFF",
+        padding: 20,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 5,
     },
     wrapperBadge: {
         height: 15,
@@ -792,9 +801,7 @@ export const style = {
         borderTopWidth: 0.5,
         borderColor: 'rgba(214,214,214, 0.6)',
     },
-    textInputSearch:{
-       flex: 1
-    },
+
     wrapperItemTrello: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -826,6 +833,13 @@ export const style = {
     inputTheme: {
         fontSize: size.titleNormal,
         width: wid * 0.7,
+    },
+    buttonSearchInSearchInput:{
+        width: 40,
+        height: 40,
+        backgroundColor: color.blue,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     colorDark: {
         color: 'black'

@@ -11,6 +11,7 @@ export default {
     },
     book:{
         isLoading: false,
+        isLoadingSearch: false,
         books: [],
         typeBooks: [],
         isLoadingMore : false,

@@ -11,9 +11,13 @@ export function libraryLoadMoreApi(page) {
     return axios.get(url);
 }
 
-
 export function libraryTypeApi() {
     let url = env.API_GRAPHICS + '/types-book';
+    return axios.get(url);
+}
+
+export function searchBook(page, text) {
+    let url = env.API_GRAPHICS + '/book/all?page=' + page + '&search=' + text;
     return axios.get(url);
 }
 

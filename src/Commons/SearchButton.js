@@ -12,10 +12,10 @@ export default class SearchButton extends Component{
             text: '',
         }
     }
-
     render(){
         return(
             <TouchableOpacity
+                activeOpacity={1}
                 style={[general.buttonSearch, general.shadow, {display: this.props.showType}]}
                 onPress={this.props.function}
             >

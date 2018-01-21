@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, Platform, Text, View, StatusBar} from 'react-native';
+import {Image, Platform, Text, View, WebView} from 'react-native';
 import {Container, Content, Item, Left, Right, Spinner} from 'native-base';
 import BackButton from '../../Commons/BackButton';
 import Loading from '../../Commons/Loading';

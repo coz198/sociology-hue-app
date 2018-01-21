@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {FlatList, Image, RefreshControl, Text, TouchableOpacity, View} from 'react-native';
-import {Container, Content, Item, Left, Right, Button} from 'native-base';
+import {Container, Content, Item, Left, Right, Button, Input} from 'native-base';
 import SearchButton from '../../Commons/SearchButton';
 import Loading from '../../Commons/Loading';
 import HamburgerButton from '../../Commons/HamburgerButton';
@@ -8,7 +8,6 @@ import general from '../../Styles/generalStyle';
 import * as homeAction from './homeAction';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import SearchBar from 'react-native-searchbar';
 
 const items = [];
 
@@ -19,11 +18,6 @@ class HomeContainer extends Component {
             page: 2,
             tab: 0,
         }
-        this._handleResults = this._handleResults.bind(this);
-    }
-
-    _handleResults(results) {
-        this.setState({results});
     }
 
     componentWillMount() {
@@ -41,10 +35,8 @@ class HomeContainer extends Component {
     toggleSearch() {
         if (this.state.showSearch == false) {
             this.setState({showSearch: true});
-            this.searchBar.show();
         } else {
             this.setState({showSearch: false});
-            this.searchBar.hide();
         }
     }
 
@@ -74,11 +66,6 @@ class HomeContainer extends Component {
                     </TouchableOpacity>
                     <HamburgerButton navigate={navigate}/>
                 </View>
-                <SearchBar
-                    ref={(ref) => this.searchBar = ref}
-                    data={items}
-                    handleResults={this._handleResults}
-                />
                 <View style={{flex: 1}}>
                     {
                         isLoading
@@ -129,8 +116,7 @@ class HomeContainer extends Component {
                             />
                     }
                 </View>
-                <SearchButton
-                    function={() => this.toggleSearch()}/>
+                {/*<SearchButton function={() => this.toggleSearch()}/>*/}
             </Container>
         );
     }

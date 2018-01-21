@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {FlatList, Image, Linking, RefreshControl, Text, TouchableOpacity, View} from 'react-native';
-import {Container, Content, Item, Left, Right, ActionSheet, Root} from 'native-base';
+import {Container, Content, Item, Left, Right, ActionSheet, Root, Input, Button} from 'native-base';
 import HamburgerButton from '../../Commons/HamburgerButton';
 import Loading from '../../Commons/Loading';
 import IconLight from '../../Commons/IconLight';
@@ -10,27 +10,17 @@ import * as libraryAction from './libraryAction';
 import general from '../../Styles/generalStyle';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
-import SearchBar from 'react-native-searchbar';
-
-const items = [];
+import Modal from "react-native-modal";
 
 class LibraryContainer extends Component {
     constructor() {
         super();
         this.state = {
-            items: '',
-            results: [],
             page: 2,
-            tab: 0,
-            isLoadingState: false,
+            searchTxt: "",
             clicked: "Thể loại sách",
+            isModalVisible: false
         }
-        this._handleResults = this._handleResults.bind(this);
-    }
-
-
-    _handleResults(results) {
-        this.setState({results});
     }
 
     componentWillMount() {
@@ -41,11 +31,16 @@ class LibraryContainer extends Component {
 
     getMoreListBook() {
         const {libraryAction, books} = this.props;
-        if (books.length % 12 === 0 && books.length >= (this.state.page - 1) * 12) {
-            this.setState({page: this.state.page + 1});
-            libraryAction.getMoreListBook(this.state.page);
+        const {page, searchTxt} = this.state;
+            this.setState({page: page + 1});
+            if(searchTxt != "") {
+                this.setState({page: 1});
+                libraryAction.searchMoreBook(page, searchTxt);
+                console.log(page)
+            }
+            else
+                libraryAction.getMoreListBook(page);
         }
-    }
 
     toggleSearch() {
         if (this.state.showSearch === false) {
@@ -64,12 +59,14 @@ class LibraryContainer extends Component {
             return (<View/>)
     }
 
+    search(){
+        this.props.libraryAction.searchBook(1, this.state.searchTxt);
+    }
+
     render() {
         const {navigate} = this.props.navigation;
         const {clicked} = this.state;
-        const {books, isLoadingMore, isRefreshing, typeBooks} = this.props;
-        let BUTTONS = this.props.typeBooks ? this.props.typeBooks : [];
-
+        const {books, isLoadingMore, isRefreshing, typeBooks, isLoadingSearch, isLoading} = this.props;
         return (
             <Container style={general.wrapperContainer}>
                 <View style={[general.wrapperHeader, general.paddingBorder]}>
@@ -86,27 +83,10 @@ class LibraryContainer extends Component {
                     </TouchableOpacity>
                     <HamburgerButton navigate={navigate}/>
                 </View>
-                <SearchBar
-                    ref={(ref) => this.searchBar = ref}
-                    data={items}
-                    showType={true}
-                    handleResults={this._handleResults}
-                    typeBooks={typeBooks}
-                />
                 <View style={{height: 40, marginTop: -20}}>
-                    <Root>
                         <TouchableOpacity
                             style={general.buttonSelect}
-                            onPress={() =>
-                                ActionSheet.show(
-                                    {
-                                        options: BUTTONS,
-                                        title: "Chọn loại sách"
-                                    },
-                                    buttonIndex => {
-                                        this.setState({ clicked: BUTTONS[buttonIndex].trim()});
-                                    }
-                                )}
+                            onPress={() => this.setState({ visibleModal: true})}
                         >
                             <View style={[general.wrapperRowCenter, general.paddingLR]}>
                                 <Text style={general.textTitleCard} numberOfLines={1}>{this.state.clicked}</Text>
@@ -116,18 +96,38 @@ class LibraryContainer extends Component {
                                     color={'#000'}
                                 />
                             </View>
-
                         </TouchableOpacity>
-                    </Root>
                 </View>
-
+                <Item regular style={[general.marginLR, general.marginBottom, {height: 40}]}>
+                    <Input
+                        style={general.textDescriptionCard}
+                        onChangeText={(searchTxt) => {
+                            this.setState({searchTxt: searchTxt});
+                        }}
+                        placeholder='Tìm kiếm' />
+                    <TouchableOpacity style={general.buttonSearchInSearchInput} onPress={() => this.search()}>
+                        <Icon
+                            name={"fontawesome|search"}
+                            size={15}
+                            color={'#fff'}
+                        />
+                    </TouchableOpacity>
+                </Item>
                 <View style={{flex: 1}}>
                     {
-                        this.props.isLoading
+                        isLoading || isLoadingSearch
                             ?
                             <Loading/>
                             :
-                            <FlatList
+                            books == []
+                                ?
+                                <View style={general.wrapperCenter}>
+                                    <Text style={general.textTitleCard}>
+                                        Khong co
+                                    </Text>
+                                </View>
+                                :
+                                <FlatList
                                 ref="listRef"
                                 showsVerticalScrollIndicator={false}
                                 data={books}
@@ -175,15 +175,16 @@ class LibraryContainer extends Component {
                                                                     </Text>
                                                                 </View>
                                                                 <Text
-                                                                    style={[general.textDescriptionCard, general.marginBottom, {marginTop: 40}]}>DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription </Text>
+                                                                    style={[general.textDescriptionCard, general.marginBottom, {marginTop: 40}]}>
+                                                                    Description
+                                                                </Text>
                                                             </View>
                                                             <View style={{marginTop: 20}}>
                                                                 <TouchableOpacity
                                                                     onPress={() => Linking.openURL(item.download)}
                                                                     style={general.buttonDownload}>
                                                                     <Text style={[general.textTitleCardLight]}
-                                                                          numberOfLines={1}>Tải
-                                                                        sách ngay</Text>
+                                                                          numberOfLines={1}>Tải sách ngay</Text>
                                                                     <IconLight name="feat|arrow-right"/>
                                                                 </TouchableOpacity>
                                                             </View>
@@ -206,73 +207,96 @@ class LibraryContainer extends Component {
                                                 </View>
                                                 :
                                                 clicked == item.properties[0].value.trim()
-                                                ?
-                                                <View>
-                                                    <View style={general.wrapperBottomModule}/>
-                                                    <View style={[general.wrapperCardBook]}>
-                                                        <View style={[general.wrapperImageRectangle, general.marginLR]}/>
-                                                        <View style={general.wrapperTextInCardBook}>
-                                                            <View>
-                                                                <Text/>
-                                                                <Text
-                                                                    style={general.textTitleGiant}>{item.name ? item.name.trim() : item.name}</Text>
-                                                                <Text/>
+                                                    ?
+                                                    <View>
+                                                        <View style={general.wrapperBottomModule}/>
+                                                        <View style={[general.wrapperCardBook]}>
+                                                            <View style={[general.wrapperImageRectangle, general.marginLR]}/>
+                                                            <View style={general.wrapperTextInCardBook}>
                                                                 <View>
+                                                                    <Text/>
                                                                     <Text
-                                                                        style={[general.categoryAbsolute, general.textDescriptionCardLight]}>
-                                                                        {
-                                                                            item.properties.map((item) => {
-                                                                                if (item.name.trim() === "TYPE_BOOK") {
-                                                                                    return (
-                                                                                        item.value.trim()
-                                                                                    )
+                                                                        style={general.textTitleGiant}>{item.name ? item.name.trim() : item.name}</Text>
+                                                                    <Text/>
+                                                                    <View>
+                                                                        <Text
+                                                                            style={[general.categoryAbsolute, general.textDescriptionCardLight]}>
+                                                                            {
+                                                                                item.properties.map((item) => {
+                                                                                    if (item.name.trim() === "TYPE_BOOK") {
+                                                                                        return (
+                                                                                            item.value.trim()
+                                                                                        )
 
-                                                                                }
-                                                                            })
-                                                                        }
-                                                                    </Text>
+                                                                                    }
+                                                                                })
+                                                                            }
+                                                                        </Text>
+                                                                    </View>
+                                                                    <Text
+                                                                        style={[general.textDescriptionCard, general.marginBottom, {marginTop: 40}]}>DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription </Text>
                                                                 </View>
-                                                                <Text
-                                                                    style={[general.textDescriptionCard, general.marginBottom, {marginTop: 40}]}>DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription </Text>
+                                                                <View style={{marginTop: 20}}>
+                                                                    <TouchableOpacity
+                                                                        onPress={() => Linking.openURL(item.download)}
+                                                                        style={general.buttonDownload}>
+                                                                        <Text style={[general.textTitleCardLight]}
+                                                                              numberOfLines={1}>Tải
+                                                                            sách ngay</Text>
+                                                                        <IconLight name="feat|arrow-right"/>
+                                                                    </TouchableOpacity>
+                                                                </View>
+                                                                <Text/>
                                                             </View>
-                                                            <View style={{marginTop: 20}}>
-                                                                <TouchableOpacity
-                                                                    onPress={() => Linking.openURL(item.download)}
-                                                                    style={general.buttonDownload}>
-                                                                    <Text style={[general.textTitleCardLight]}
-                                                                          numberOfLines={1}>Tải
-                                                                        sách ngay</Text>
-                                                                    <IconLight name="feat|arrow-right"/>
-                                                                </TouchableOpacity>
-                                                            </View>
-                                                            <Text/>
                                                         </View>
-                                                    </View>
-                                                    <View
-                                                        style={[general.imageRectangle, {
-                                                            position: 'absolute',
-                                                            top: 20,
-                                                            left: 20
-                                                        }]}>
-                                                        <View style={[general.imageRectangle, general.sh]}>
+                                                        <View
+                                                            style={[general.imageRectangle, {
+                                                                position: 'absolute',
+                                                                top: 20,
+                                                                left: 20
+                                                            }]}>
                                                             <Image
                                                                 source={{uri: item.avatar_url}}
                                                                 style={general.imageRectangle}/>
                                                         </View>
+                                                        <Text/>
                                                     </View>
-                                                    <Text/>
-                                                </View>
-                                                :
-                                                <View/>
-
+                                                    :
+                                                    <View/>
                                         }
                                     </View>
-
-
-                            }/>
+                                }/>
                     }
+                    <Modal
+                        isVisible={this.state.visibleModal === true}
+                        style={{justifyContent: "flex-end", margin: 0}}
+                    >
+                        <View style={general.wrapperModalBottom}>
+                            <Text style={[general.textTitleCardBlue, general.marginBottom, ]}>Chọn thể loại sách</Text>
+                            <View style={general.line}/>
+                            <Content  showsVerticalScrollIndicator={false}
+                            >
+                                <View style={general.wrapperCenter}>
+                                    {
+                                        typeBooks.map((item) =>
+                                            <TouchableOpacity style={general.paddingLine} onPress={() => this.setState({clicked: item, visibleModal: null})}>
+                                                <Text style={general.textIsActive}>{item}</Text>
+                                            </TouchableOpacity>
+                                        )
+                                    }
+                                </View>
+
+                            </Content>
+
+                            <TouchableOpacity style={general.marginTop} onPress={() => this.setState({ visibleModal: null })}>
+                                <Text style={[general.textTitleCardBlue, {color:'#c50000'}]}>Thoát</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </Modal>
                 </View>
-                <SearchButton function={() => this.toggleSearch()}/>
+
+
+                {/*<SearchButton function={() => this.toggleSearch()}/>*/}
             </Container>
         );
     }
@@ -285,6 +309,7 @@ function mapStateToProps(state) {
         isLoading: state.library.isLoading,
         isRefreshing: state.library.isRefreshing,
         isLoadingMore: state.library.isLoadingMore,
+        isLoadingSearch: state.library.isLoadingSearch,
     }
 }
 
