@@ -92,7 +92,6 @@ p.wrapperImg{
     padding-right: 0;
 }
 table:{
-    font-family: Montserrat !important;
     margin: 10px;
     padding: 10px;
 }

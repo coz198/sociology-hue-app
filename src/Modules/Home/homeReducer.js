@@ -18,6 +18,21 @@ export default function homeReducer(state = initialState.home, action) {
                     isLoading: false,
                 }
             };
+            case types.BEGIN_SEARCH_BLOG:
+            return {
+                ...state,
+                ...{
+                    isLoadingSearch: true,
+                }
+            };
+        case types.SEARCH_BLOG_SUCCESS:
+            return {
+                ...state,
+                ...{
+                    blogs: action.blogs,
+                    isLoadingSearch: false,
+                }
+            };
         case types.BEGIN_GET_MORE_LIST_BLOG:
             return {
                 ...state,
@@ -33,6 +48,7 @@ export default function homeReducer(state = initialState.home, action) {
                     isLoadingMore: false,
                 }
             };
+
         case types.BEGIN_REFRESH_NEW_FEED :
             return {
                 ...state,
@@ -54,6 +70,14 @@ export default function homeReducer(state = initialState.home, action) {
                 ...{
                     isRefreshing: false,
                     blogs: [array3, ...state.blogs]
+                }
+            }
+        }
+        case types.CHANGE_VALUE_SEARCH_BLOG : {
+            return {
+                ...state,
+                ...{
+                    blogs : action.blogs,
                 }
             }
         }

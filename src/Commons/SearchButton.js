@@ -15,8 +15,8 @@ export default class SearchButton extends Component{
     render(){
         return(
             <TouchableOpacity
-                activeOpacity={1}
-                style={[general.buttonSearch, general.shadow, {display: this.props.showType}]}
+                activeOpacity={0.8}
+                style={[general.buttonSearch, general.shadow, {display: 'flex'}]}
                 onPress={this.props.function}
             >
                 <Icon name={'fontawesome|search'} size={20} color={'#FFF'}/>

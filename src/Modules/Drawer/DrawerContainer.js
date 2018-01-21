@@ -5,13 +5,6 @@ import general from '../../Styles/generalStyle';
 import {connect} from 'react-redux';
 
 class DrawerContainer extends Component {
-    constructor() {
-        super();
-        this.state = {
-            text: '',
-            setThemeDark: false
-        }
-    }
     render() {
         const {navigate} = this.props.navigation;
         return (
@@ -30,12 +23,17 @@ class DrawerContainer extends Component {
                     <TouchableOpacity
                         onPress={() => navigate('Home')}
                     >
-                            <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Home</Text>
+                            <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Trang chủ</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => navigate('Library')}
                     >
-                            <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Library</Text>
+                            <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Thư viện</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigate('Rule')}
+                    >
+                            <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Điều khoản</Text>
                     </TouchableOpacity>
 
                     <View style={general.wrapperBottomModule}/>

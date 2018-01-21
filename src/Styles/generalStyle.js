@@ -411,10 +411,17 @@ export const style = {
         width: wid,
         height: hei / 2,
         backgroundColor: "#FFF",
-        padding: 20,
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 5,
+    },
+    wrapperModalTypeBottom: {
+        width: wid,
+        padding: 20,
+        height: 30,
+        backgroundColor: "#FFF",
+        justifyContent: "center",
+        alignItems: "center",
     },
     wrapperBadge: {
         height: 15,
@@ -767,6 +774,13 @@ export const style = {
         height: 3,
         backgroundColor: 'rgba(0, 0, 0, 0.2)',
     },
+    wrapperSearch: {
+        height: 40,
+        position: 'absolute',
+        width: wid - 40,
+        backgroundColor: '#FFF',
+        zIndex: 100,
+    },
     wrapperProgressLight: {
         height: 3,
         backgroundColor: 'rgba(255, 255, 255, 0.2)',
@@ -837,7 +851,7 @@ export const style = {
     buttonSearchInSearchInput:{
         width: 40,
         height: 40,
-        backgroundColor: color.blue,
+        backgroundColor: color.mainColor,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -865,6 +879,7 @@ export const style = {
         borderRadius: 30,
     },
     buttonSelect:{
+        width: wid/2,
         height: 48,
         justifyContent: 'center',
         alignItems: 'flex-start',

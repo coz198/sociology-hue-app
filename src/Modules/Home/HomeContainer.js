@@ -1,22 +1,26 @@
 import React, {Component} from 'react';
-import {FlatList, Image, RefreshControl, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, Image, RefreshControl, Text, TouchableOpacity, View, Animated, Easing, Keyboard} from 'react-native';
 import {Container, Content, Item, Left, Right, Button, Input} from 'native-base';
 import SearchButton from '../../Commons/SearchButton';
 import Loading from '../../Commons/Loading';
+import Icon from '../../Commons/Icon';
 import HamburgerButton from '../../Commons/HamburgerButton';
 import general from '../../Styles/generalStyle';
 import * as homeAction from './homeAction';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-const items = [];
-
 class HomeContainer extends Component {
     constructor() {
         super();
         this.state = {
             page: 2,
-            tab: 0,
+            txtSearch: "",
+            clicked: "Chuyên mục",
+            showSearch: false,
+            autoFocus: false,
+            typesbook: [],
+            searchMove: new Animated.Value(-200)
         }
     }
 
@@ -33,12 +37,51 @@ class HomeContainer extends Component {
     }
 
     toggleSearch() {
-        if (this.state.showSearch == false) {
-            this.setState({showSearch: true});
+        const {showSearch, searchMove} = this.state;
+        if(showSearch == false){
+            this.setState({showSearch: true, autoFocus: true})
+            Animated.timing(
+                searchMove,
+                {
+                    toValue: -50,
+                    duration: 400,
+                    easing: Easing.bounce,
+                }
+            ).start()
         } else {
-            this.setState({showSearch: false});
+            Keyboard.dismiss();
+            this.setState({showSearch: false})
+            Animated.timing(
+                searchMove,
+                {
+                    toValue: -200,
+                    duration: 400,
+                }
+            ).start()
         }
     }
+
+    // SEARCH FUNCTION
+    search(){
+        this.props.homeAction.searchBlog(1, this.state.txtSearch);
+    }
+    changeSearch() {
+        this.props.homeAction.changeValueSearch();
+    }
+    searchHaveTimeout(value) {
+        this.setState({
+            page: 1,
+            txtSearch: value,
+        });
+        if (this.timeOut !== null) {
+            clearTimeout(this.timeOut);
+        }
+        this.timeOut = setTimeout(function () {
+            this.changeSearch();
+            this.search();
+        }.bind(this), 500)
+    }
+    // END SEARCH FUNCTION
 
     loadMore() {
         if (this.props.isLoadingMore)
@@ -48,8 +91,9 @@ class HomeContainer extends Component {
     }
 
     render() {
+        const top = this.state.searchMove;
         const {navigate} = this.props.navigation;
-        const {isLoading, blogs, isRefreshing} = this.props;
+        const {isLoading, blogs, isRefreshing, isLoadingSearch} = this.props;
         return (
             <Container style={general.wrapperContainer}>
                 <View style={[general.wrapperHeader, general.paddingBorder]}>
@@ -66,12 +110,49 @@ class HomeContainer extends Component {
                     </TouchableOpacity>
                     <HamburgerButton navigate={navigate}/>
                 </View>
+                <Animated.View>
+                    <Item regular style={[general.marginLR, general.marginBottom, general.wrapperSearch,{top}]}>
+                        <Input
+                            style={general.textDescriptionCard}
+                            onChangeText={(txtSearch) => {
+                                this.searchHaveTimeout(txtSearch);
+                            }}
+                            placeholder='Tìm kiếm' />
+                        <TouchableOpacity style={general.buttonSearchInSearchInput} onPress={() => this.search()}>
+                            <Icon
+                                name={"fontawesome|search"}
+                                size={15}
+                                color={'#fff'}
+                            />
+                        </TouchableOpacity>
+                    </Item>
+                </Animated.View>
+                {/*<View style={{height: 40, marginTop: -20}}>*/}
+                    {/*<TouchableOpacity*/}
+                        {/*style={general.buttonSelect}*/}
+                        {/*onPress={() => this.nameInput.focus()}*/}
+                    {/*>*/}
+                        {/*<View style={[general.wrapperRowCenter, general.paddingLR]}>*/}
+                            {/*<Text style={general.textTitleCard} numberOfLines={1}>{this.state.clicked}</Text>*/}
+                            {/*<Icon*/}
+                                {/*name={"feat|chevron-down"}*/}
+                                {/*size={15}*/}
+                                {/*color={'#000'}*/}
+                            {/*/>*/}
+                        {/*</View>*/}
+                    {/*</TouchableOpacity>*/}
+                {/*</View>*/}
+
+
+
                 <View style={{flex: 1}}>
                     {
-                        isLoading
+                        isLoading || isLoadingSearch
                             ?
                             <Loading/>
                             :
+                            blogs.length != 0
+                            ?
                             <FlatList
                                 ref="listRef"
                                 showsVerticalScrollIndicator={false}
@@ -114,9 +195,15 @@ class HomeContainer extends Component {
                                     </TouchableOpacity>
                                 }
                             />
+                            :
+                            <View style={[general.wrapperCenter, general.paddingLR]}>
+                                <Text style={[general.textTitleCard, general.marginTop, {textAlign: 'center'}]}>
+                                    Không tìm thấy kết quả nào cho "{this.state.txtSearch}".
+                                </Text>
+                            </View>
                     }
                 </View>
-                {/*<SearchButton function={() => this.toggleSearch()}/>*/}
+                <SearchButton function={() => this.toggleSearch()}/>
             </Container>
         );
     }
@@ -128,6 +215,7 @@ function mapStateToProps(state) {
         isLoading: state.home.isLoading,
         isRefreshing: state.home.isRefreshing,
         isLoadingMore: state.home.isLoadingMore,
+        isLoadingSearch: state.home.isLoadingSearch,
     }
 }
 

@@ -20,6 +20,25 @@ export function getListBlog(page) {
     }
 }
 
+export function searchBlog(page, text) {
+    return (dispatch) => {
+        dispatch({
+            type: types.BEGIN_SEARCH_BLOG
+        });
+        homeApi.searchBlogApi(page, text)
+            .then(function (res) {
+                dispatch({
+                    type: types.SEARCH_BLOG_SUCCESS,
+                    blogs: res.data.blogs
+                });
+                console.log(res.data.blogs)
+            })
+            .catch(function (error) {
+                throw (error);
+            });
+    }
+}
+
 export function refreshListBlog() {
     return (dispatch) => {
         dispatch({
@@ -55,5 +74,12 @@ export function getMoreListBlog(page) {
             .catch(function (error) {
                 throw (error);
             });
+    }
+}
+
+export function changeValueSearch(){
+    return {
+        type : types.CHANGE_VALUE_SEARCH_BLOG,
+        blogs : [],
     }
 }

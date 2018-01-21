@@ -2,6 +2,7 @@ import {TabNavigator, StackNavigator, DrawerNavigator} from 'react-navigation';
 import * as size from '../Styles/size';
 import HomeContainer from '../Modules/Home/HomeContainer';
 import BlogContainer from '../Modules/Blog/BlogContainer';
+import RuleContainer from '../Modules/Rule/RuleContainer';
 import LibraryContainer from '../Modules/Library/LibraryContainer';
 import DrawerContainer from '../Modules/Drawer/DrawerContainer';
 import * as React from "react";
@@ -21,6 +22,7 @@ const Drawer = DrawerNavigator(
     {
         Home: {screen: HomeStackNavigator},
         Library: {screen: LibraryContainer},
+        Rule: {screen: RuleContainer},
     },
     {
         drawerWidth: size.wid * 3 / 4,
@@ -31,6 +33,7 @@ const Drawer = DrawerNavigator(
 export const Main = StackNavigator(
     {
         Drawer: {screen: Drawer},
+
     },
     {headerMode: 'none'}
 );

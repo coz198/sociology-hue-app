@@ -19,12 +19,12 @@ export function getBook() {
     }
 }
 
-export function searchBook(page, text) {
+export function searchBook(page, text, type) {
     return (dispatch) => {
         dispatch({
             type: types.BEGIN_SEARCH_BOOK
         });
-        libraryApi.searchBook(page, text)
+        libraryApi.searchBook(page, text, type)
             .then(function (res) {
                 dispatch({
                     type: types.SEARCH_BOOK_SUCCESS,
@@ -38,12 +38,12 @@ export function searchBook(page, text) {
     }
 }
 
-export function searchMoreBook(page, text) {
+export function searchMoreBook(page, text, type) {
     return (dispatch) => {
         dispatch({
             type: types.BEGIN_SEARCH_MORE_BOOK
         });
-        libraryApi.searchBook(page, text)
+        libraryApi.searchBook(page, text, type)
             .then(function (res) {
                 dispatch({
                     type: types.SEARCH_MORE_BOOK_SUCCESS,
@@ -112,5 +112,12 @@ export function getTypeBook() {
             .catch(function (error) {
                 throw (error);
             });
+    }
+}
+
+export function changeValueSearch(){
+    return {
+        type : types.CHANGE_VALUE_SEARCH_BOOK,
+        books : [],
     }
 }

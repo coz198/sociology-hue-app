@@ -63,6 +63,13 @@ export default function libraryReducer(state = initialState.book, action) {
                     isLoadingMore: false,
                 }
             };
+        case types.CHANGE_VALUE_SEARCH_BOOK:
+            return {
+                ...state,
+                ...{
+                    books: action.books,
+                }
+            };
 
         case types.BEGIN_GET_TYPE_BOOK:
             return {

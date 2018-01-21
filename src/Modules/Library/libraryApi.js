@@ -16,8 +16,8 @@ export function libraryTypeApi() {
     return axios.get(url);
 }
 
-export function searchBook(page, text) {
-    let url = env.API_GRAPHICS + '/book/all?page=' + page + '&search=' + text;
+export function searchBook(page, text, type) {
+    let url = env.API_GRAPHICS + '/book/all?page=' + page + '&search=' + text + '&type=' + type;
     return axios.get(url);
 }
 

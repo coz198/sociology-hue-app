@@ -2,6 +2,7 @@ export default {
     home:{
         isLoading: false,
         isLoadingMore: false,
+        isLoadingSearch: false,
         isRefreshing : false,
         blogs: [],
     },
