@@ -70,6 +70,7 @@ export function getMoreListBlog(page) {
                     type: types.GET_MORE_LIST_BLOG_SUCCESS,
                     blogs: res.data.blogs,
                 });
+                console.log(res.data.blogs)
             })
             .catch(function (error) {
                 throw (error);

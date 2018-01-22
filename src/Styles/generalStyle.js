@@ -365,6 +365,7 @@ export const style = {
     },
     wrapperImageRectangle: {
         width: wid / 3,
+        height: hei / 3,
     },
     wrapperTextInCardBook: {
         width: wid * 2 / 3 - 40,
@@ -578,7 +579,7 @@ export const style = {
     },
     imageRectangle: {
         width: wid / 3,
-        height: wid / 3 * 1.5,
+        height: hei / 3 - 30,
         backgroundColor: color.loadingImage
     },
 

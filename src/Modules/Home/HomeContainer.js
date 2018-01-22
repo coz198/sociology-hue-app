@@ -14,12 +14,10 @@ class HomeContainer extends Component {
     constructor() {
         super();
         this.state = {
-            page: 2,
+            page: 1,
             txtSearch: "",
             clicked: "Chuyên mục",
             showSearch: false,
-            autoFocus: false,
-            typesbook: [],
             searchMove: new Animated.Value(-200)
         }
     }
@@ -30,20 +28,21 @@ class HomeContainer extends Component {
 
     getMoreListBlog() {
         const {blogs, homeAction} = this.props;
-        if (blogs.length % 6 === 0 && blogs.length >= (this.state.page - 1) * 6) {
-            this.setState({page: this.state.page + 1});
-            homeAction.getMoreListBlog(this.state.page);
+        if (blogs.length >= this.state.page * 6) {
+            let page = this.state.page + 1;
+            this.setState({page: page});
+            homeAction.getMoreListBlog(page);
         }
     }
 
     toggleSearch() {
         const {showSearch, searchMove} = this.state;
         if(showSearch == false){
-            this.setState({showSearch: true, autoFocus: true})
+            this.setState({showSearch: true})
             Animated.timing(
                 searchMove,
                 {
-                    toValue: -50,
+                    toValue: -55,
                     duration: 400,
                     easing: Easing.bounce,
                 }
@@ -61,9 +60,10 @@ class HomeContainer extends Component {
         }
     }
 
+
     // SEARCH FUNCTION
-    search(){
-        this.props.homeAction.searchBlog(1, this.state.txtSearch);
+    search(page, text){
+        this.props.homeAction.searchBlog(page, text);
     }
     changeSearch() {
         this.props.homeAction.changeValueSearch();
@@ -78,7 +78,7 @@ class HomeContainer extends Component {
         }
         this.timeOut = setTimeout(function () {
             this.changeSearch();
-            this.search();
+            this.search(1, this.state.txtSearch);
         }.bind(this), 500)
     }
     // END SEARCH FUNCTION
@@ -118,7 +118,8 @@ class HomeContainer extends Component {
                                 this.searchHaveTimeout(txtSearch);
                             }}
                             placeholder='Tìm kiếm' />
-                        <TouchableOpacity style={general.buttonSearchInSearchInput} onPress={() => this.search()}>
+                        <TouchableOpacity style={general.buttonSearchInSearchInput}
+                                          onPress={() => this.search(1, this.state.txtSearch)}>
                             <Icon
                                 name={"fontawesome|search"}
                                 size={15}
@@ -142,7 +143,6 @@ class HomeContainer extends Component {
                         {/*</View>*/}
                     {/*</TouchableOpacity>*/}
                 {/*</View>*/}
-
 
 
                 <View style={{flex: 1}}>

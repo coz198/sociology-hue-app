@@ -15,7 +15,7 @@ export default class SearchButton extends Component{
     render(){
         return(
             <TouchableOpacity
-                activeOpacity={0.8}
+                activeOpacity={1}
                 style={[general.buttonSearch, general.shadow, {display: 'flex'}]}
                 onPress={this.props.function}
             >
