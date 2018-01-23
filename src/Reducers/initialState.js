@@ -20,4 +20,27 @@ export default {
         isLoadingTypeBook : false,
         status : 0,
     },
+    login: {
+        login: {},
+        loginStatus: false,
+        token: null,
+        isLoading: false,
+        error: false,
+        result: false,
+        isGetLocalData: false,
+        status: 0,
+        user: {},
+    },
+    register: {
+        register: {},
+        isLoading: false,
+        error: false,
+        status: 0,
+    },
+    survey: {
+        isLoading: false,
+        isLoadingQuestion: false,
+        surveys: [],
+        questions: [],
+    },
 }

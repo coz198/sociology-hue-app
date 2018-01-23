@@ -49,23 +49,20 @@ export const style = {
         alignItems: 'center'
     },
     textTitleInput: {
-        fontFamily: (Platform.OS === 'ios') ? 'Montserrat' : 'Montserrat-Light',
+        fontFamily:'Montserrat',
         fontSize: 12,
         backgroundColor: color.none,
         paddingLeft: 25,
         marginTop: (Platform.OS === 'ios') ? 25 : 20,
         color: color.darkGray,
-        fontWeight: '600',
     },
     inputTheme02: {
-        fontFamily: (Platform.OS === 'ios') ? 'Montserrat' : 'Montserrat-Medium',
-        height: 30,
+        fontFamily:'Montserrat',
         padding: 0,
         margin: 0,
         fontSize: 13,
         lineHeight: 10,
         color: color.darkGray,
-        fontWeight: (Platform.OS === 'ios') ? '400' : 'normal',
 
     },
     imageInHeader:{
@@ -280,13 +277,25 @@ export const style = {
     textAlign:{
         textAlign: 'center'
     },
-    textTitleGiantThin: {
-        color: '#FFFFFF',
+    textTitleBigThin: {
+        color: color.textColor,
         fontFamily: 'Montserrat-Light',
-        fontSize: 35,
+        fontSize: 25
     },
     textDescriptionCard: {
         color: color.textColor,
+        fontFamily: 'Montserrat-Light',
+        fontSize: size.titleNormal,
+        backgroundColor: color.none,
+    },
+    textNameCard: {
+        color: color.textColor,
+        fontFamily: 'Montserrat-Regular',
+        fontSize: size.titleNormal,
+        backgroundColor: color.none,
+    },
+    textTimeCard: {
+        color: color.textColorNotActive,
         fontFamily: 'Montserrat-Light',
         fontSize: size.titleNormal,
         backgroundColor: color.none,
@@ -393,12 +402,11 @@ export const style = {
         backgroundColor: color.mainColor
     },
     imageLogin:{
-        width: 3*wid/4,
+        width: 3 * wid / 4 - 90,
         height: hei/3,
     },
     imageFullWidth: {
         height: hei /3,
-        flex: 1,
         backgroundColor: color.loadingImage
 
     },
@@ -466,6 +474,10 @@ export const style = {
         alignItems: 'center',
         backgroundColor: color.none,
     },
+    wrapperSurvey: {
+        width: wid - 40,
+        borderRadius: 15,
+    },
     wrapperLoginButton:{
         marginTop:50,
         width: wid*0.9,
@@ -490,6 +502,14 @@ export const style = {
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
+    },
+    buttonDone: {
+        borderRadius: 40,
+        width: 80,
+        height: 80,
+        backgroundColor: '#23ff4b',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     wrapperTextDownImage:{
         height: 70,
@@ -523,9 +543,9 @@ export const style = {
         backgroundColor: color.loadingImage
     },
     imageCircleTiny: {
-        height: 20,
-        width: 20,
-        borderRadius: 10,
+        height: 16,
+        width: 16,
+        borderRadius: 8,
         backgroundColor: color.loadingImage
     },
     imageCircleNormal: {
@@ -614,6 +634,9 @@ export const style = {
     },
     padding: {
         padding: 10
+    },
+    paddingFar: {
+        padding: 20
     },
     paddingTopBottom: {
         paddingTop: 10,
@@ -722,10 +745,9 @@ export const style = {
         backgroundColor: color.none,
         borderBottomWidth: 0,
     },
-    deadlineProgress: {
+    lineProgress: {
         height: 5,
-        borderRadius: 5,
-        backgroundColor: color.textColor,
+        backgroundColor: color.textColorNotActive,
     },
     categoryInImage:{
         position: 'absolute',
@@ -762,18 +784,13 @@ export const style = {
         borderRadius: 5,
         backgroundColor: color.textColorNotActive,
     },
-    deadlineProgressJobAssignment: {
-        width: 80,
-        height: 3,
-        backgroundColor: '#c50000',
-    },
-    progress: {
-        height: 3,
-        backgroundColor: '#c50000',
-    },
-    wrapperProgressDark: {
+    wrapperProcessDark: {
         height: 3,
         backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    },
+    process:{
+        height: 3,
+        backgroundColor: color.mainColor
     },
     wrapperSearch: {
         height: 40,
@@ -782,10 +799,7 @@ export const style = {
         backgroundColor: '#FFF',
         zIndex: 100,
     },
-    wrapperProgressLight: {
-        height: 3,
-        backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    },
+
     wrapperA: {
         height: 3,
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -824,6 +838,10 @@ export const style = {
     wrapperBottomModule: {
         height: 50,
     },
+
+    wrapperSpace: {
+        height: 20,
+    },
     trelloCart: {
         borderRadius: 10,
         width: wid * 0.9,
@@ -852,6 +870,14 @@ export const style = {
     buttonSearchInSearchInput:{
         width: 40,
         height: 40,
+        backgroundColor: color.mainColor,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    buttonQuestion:{
+        width: 30,
+        height: 30,
+        borderRadius: 15,
         backgroundColor: color.mainColor,
         justifyContent: 'center',
         alignItems: 'center',

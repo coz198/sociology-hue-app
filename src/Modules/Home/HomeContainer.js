@@ -44,7 +44,6 @@ class HomeContainer extends Component {
                 {
                     toValue: -55,
                     duration: 400,
-                    easing: Easing.bounce,
                 }
             ).start()
         } else {
@@ -128,23 +127,6 @@ class HomeContainer extends Component {
                         </TouchableOpacity>
                     </Item>
                 </Animated.View>
-                {/*<View style={{height: 40, marginTop: -20}}>*/}
-                    {/*<TouchableOpacity*/}
-                        {/*style={general.buttonSelect}*/}
-                        {/*onPress={() => this.nameInput.focus()}*/}
-                    {/*>*/}
-                        {/*<View style={[general.wrapperRowCenter, general.paddingLR]}>*/}
-                            {/*<Text style={general.textTitleCard} numberOfLines={1}>{this.state.clicked}</Text>*/}
-                            {/*<Icon*/}
-                                {/*name={"feat|chevron-down"}*/}
-                                {/*size={15}*/}
-                                {/*color={'#000'}*/}
-                            {/*/>*/}
-                        {/*</View>*/}
-                    {/*</TouchableOpacity>*/}
-                {/*</View>*/}
-
-
                 <View style={{flex: 1}}>
                     {
                         isLoading || isLoadingSearch

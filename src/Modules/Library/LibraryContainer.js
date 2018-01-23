@@ -53,7 +53,6 @@ class LibraryContainer extends Component {
                 {
                     toValue: -55,
                     duration: 400,
-                    easing: Easing.bounce,
                 }
             ).start()
         } else {
@@ -64,7 +63,6 @@ class LibraryContainer extends Component {
                 {
                     toValue: -200,
                     duration: 400,
-                    easing: Easing.bounce,
                 }
             ).start()
         }
