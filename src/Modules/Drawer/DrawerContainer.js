@@ -11,14 +11,13 @@ class DrawerContainer extends Component {
         if(this.props.loginStatus == true){
             this.props.logoutAction.logout();
         }
-        // const resetAction = NavigationActions.reset({
-        //     index: 1,
-        //     // actions: [
-        //     //     NavigationActions.navigate({routeName: 'Main'})
-        //     // ]
-        // })
-        // this.props.navigation.dispatch(resetAction)
-        this.props.navigation.navigate('Login');
+        const resetAction = NavigationActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({routeName: 'Login'})
+            ]
+        })
+        this.props.navigation.dispatch(resetAction)
     }
     render() {
         const {navigate} = this.props.navigation;
@@ -53,11 +52,19 @@ class DrawerContainer extends Component {
                     {
                         this.props.loginStatus == true
                             ?
-                            <TouchableOpacity
-                                onPress={() => navigate('Survey')}
-                            >
-                                <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Khảo sát</Text>
-                            </TouchableOpacity>
+                            <View>
+                                <TouchableOpacity
+                                    onPress={() => navigate('Survey')}
+                                >
+                                    <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Khảo sát</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => navigate('HistorySurvey')}
+                                >
+                                    <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Lịch sử khảo sát</Text>
+                                </TouchableOpacity>
+                            </View>
+
                             :
                             <View/>
                     }

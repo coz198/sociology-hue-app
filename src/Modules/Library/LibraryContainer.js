@@ -192,7 +192,7 @@ class LibraryContainer extends Component {
                                         this.loadMore()
                                     }
                                     renderItem={({item}) =>
-                                        <View>
+                                        <View key={item.id}>
                                             <View style={general.wrapperBottomModule}/>
                                             <View style={[general.wrapperCardBook]}>
                                                 <View style={[general.wrapperImageRectangle, general.marginLR]}/>

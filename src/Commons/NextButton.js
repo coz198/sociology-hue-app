@@ -16,7 +16,7 @@ export default class SearchButton extends Component{
         return(
             <TouchableOpacity
                 activeOpacity={1}
-                style={[general.buttonSearch, general.shadow, {display: 'flex'}]}
+                style={[general.buttonSearch, general.shadow, {display: this.props.displayStatus}]}
                 onPress={this.props.function}
             >
                 <Icon name={'feat|arrow-right'} size={20} color={'#FFF'}/>

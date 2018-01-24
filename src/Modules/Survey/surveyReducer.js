@@ -30,9 +30,101 @@ export default function blogReducer(state = initialState.survey, action) {
                 ...state,
                 ...{
                     questions: action.questions,
+                    lesson: action.lesson,
                     isLoadingQuestion: false,
                 }
             };
+        case types.BEGIN_ANSWER_SURVEY_QUESTION:
+            return {
+                ...state,
+                ...{
+                    isLoadingAnswer: true,
+                    statusAnswer: action.statusAnswer
+                }
+            };
+        case types.ANSWER_SURVEY_QUESTION_SUCCESS:
+            return {
+                ...state,
+                ...{
+                    isLoadingAnswer: false,
+                    statusAnswer: action.statusAnswer
+                }
+            };
+        case types.BEGIN_CLOSE_SURVEY_LESSON:
+            return {
+                ...state,
+                ...{
+                    isLoadingCloseSurvey: true,
+                }
+            };
+        case types.CLOSE_SURVEY_LESSON_SUCCESS:
+            return {
+                ...state,
+                ...{
+                    isLoadingCloseSurvey: false,
+                }
+            };
+        case types.BEGIN_HISTORY_SURVEY:
+            return {
+                ...state,
+                ...{
+                    isLoadingHistorySurvey: true,
+                }
+            };
+        case types.HISTORY_SURVEY_SUCCESS:
+            return {
+                ...state,
+                ...{
+                    isLoadingHistorySurvey: false,
+                    historySurvey: action.historySurvey,
+                }
+            };
+        case types.BEGIN_GET_MORE_HISTORY_SURVEY:
+            return {
+                ...state,
+                ...{
+                    isLoadingMoreHistorySurvey: true,
+                }
+            };
+        case types.GET_MORE_HISTORY_SURVEY_SUCCESS:
+            return {
+                ...state,
+                ...{
+                    isLoadingMoreHistorySurvey: false,
+                    historySurvey: [...state.historySurvey, ...action.historySurvey],
+                }
+            };
+        case types.BEGIN_REFRESH_HISTORY_SURVEY :
+            return {
+                ...state,
+                ...{
+                    isRefreshingHistorySurvey : true
+                }
+            };
+        case types.REFRESH_HISTORY_SURVEY_ERROR :
+            return {
+                ...state,
+                ...{
+                    isRefreshingHistorySurvey : false
+                }
+            };
+        case types.REFRESH_HISTORY_SURVEY_SUCCESS: {
+            let array1 = state.historySurvey.slice(0, 20);
+            let array2 = action.historySurvey;
+            let array3 = [];
+            for (let i = 0; i < 21; i++) {
+                if (array2[i].id !== array1[i].id) {
+                    array3.push(array2[i]);
+                }
+            }
+            return {
+                ...state,
+                ...{
+                    isRefreshingHistorySurvey: false,
+                    historySurvey: [array3, ...state.historySurvey]
+                }
+            }
+        }
         default:
             return state
     }

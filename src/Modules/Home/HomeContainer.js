@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FlatList, Image, RefreshControl, Text, TouchableOpacity, View, Animated, Easing, Keyboard} from 'react-native';
+import {AsyncStorage, FlatList, Image, RefreshControl, Text, TouchableOpacity, View, Animated, Easing, Keyboard} from 'react-native';
 import {Container, Content, Item, Left, Right, Button, Input} from 'native-base';
 import SearchButton from '../../Commons/SearchButton';
 import Loading from '../../Commons/Loading';
@@ -9,6 +9,7 @@ import general from '../../Styles/generalStyle';
 import * as homeAction from './homeAction';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import * as loginAction from "../Login/loginActions";
 
 class HomeContainer extends Component {
     constructor() {
@@ -24,6 +25,10 @@ class HomeContainer extends Component {
 
     componentWillMount() {
         this.props.homeAction.getListBlog(1);
+
+    }
+    componentDidMount(){
+        this.props.loginAction.getDataLogin(this.props.status);
     }
 
     getMoreListBlog() {
@@ -156,6 +161,7 @@ class HomeContainer extends Component {
                                 }
                                 renderItem={({item}) =>
                                     <TouchableOpacity
+
                                         onPress={() => navigate('BlogContainer', {id : item.id})}
                                         activeOpacity={0.9}
                                         style={[general.marginTopBottom, general.paddingLR, {marginBottom: 20}]}>
@@ -204,6 +210,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         homeAction: bindActionCreators(homeAction, dispatch),
+        loginAction: bindActionCreators(loginAction, dispatch)
     }
 }
 

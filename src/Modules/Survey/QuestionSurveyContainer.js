@@ -3,7 +3,7 @@ import {
     FlatList, Image, RefreshControl, Text, TouchableOpacity, View, Animated, Easing, Keyboard,
     Linking,
 } from 'react-native';
-import {Container, Content, Item, Left, Right, Button, Input, ListItem, CheckBox, Body} from 'native-base';
+import {Container, Content, Item, Left, Right, Button, Input, ListItem, CheckBox, Toast, Root} from 'native-base';
 import NextButton from '../../Commons/NextButton';
 import Loading from '../../Commons/Loading';
 import HamburgerButton from '../../Commons/HamburgerButton';
@@ -19,19 +19,56 @@ class DetailSurveyContainer extends Component {
     constructor() {
         super();
         this.state = {
+            index: -1,
             questionNumber: 1,
             answer: '',
-            selectedFruits: []
+            selectedChk: [],
+            answerChk: '',
+            isLoadingQues: false
         }
     }
 
-    onSelectionsChange = (selectedFruits) => {
-        this.setState({ selectedFruits })
+    sentAnswerSurveyQuestion(id_question, answer) {
+        const {token} = this.props;
+        const {id} = this.props.lesson;
+        this.props.surveyAction.sentAnswerSurveyQuestion(id_question, id, token, answer);
     }
 
-    questionType(type, data) {
-        let check = [false, false, false, false, false];
-        const newData = data.map((item, i) => {
+    closeSurveyLesson() {
+        const {token} = this.props;
+        const {id} = this.props.lesson;
+        this.props.surveyAction.closeSurveyLesson(id, token);
+    }
+
+    answerTextQuestion(value) {
+        this.setState({answer: value})
+    }
+
+    answerRadioQuestion(value) {
+        this.setState({answer: value})
+
+    }
+
+    answerSelectQuestion(value) {
+        let result = value.map((item) => {
+            return item.value
+        })
+        result = result.toString();
+        this.setState({selectedChk: value})
+        this.setState({answer: result})
+    }
+
+    resetAnswer() {
+        this.setState({
+            answer: '',
+            answerTxt: '',
+            index: -1,
+            selectedChk: [],
+        })
+    }
+
+    questionType(type, data, id) {
+        const newData = data.map((item) => {
             return {
                 ...item,
                 label: item.content,
@@ -40,45 +77,67 @@ class DetailSurveyContainer extends Component {
         })
         switch (type) {
             case 0 : {
+                const {isLoadingNextQuestion} = this.state;
                 return (
                     <Item>
-                        <Input
-                            placeholder="Nhập câu trả lời"
-                            style={general.inputTheme02}
-                            onChangeText={(answer) => this.setState({answer: answer})}
-                        />
+                        {
+                            isLoadingNextQuestion
+                                ?
+                                <Loading/>
+                                :
+                                <Input
+                                    placeholder="Nhập câu trả lời"
+                                    style={general.inputTheme02}
+                                    onChangeText={(value) => this.answerTextQuestion(value)}
+                                />
+                        }
                     </Item>
                 )
             }
             case 1 : {
+                const {isLoadingNextQuestion} = this.state;
                 return (
                     <View style={{marginLeft: 4}}>
-                        <RadioForm
-                            style={{justifyContent: 'flex-start', alignItems: 'flex-start'}}
-                            buttonColor={'#000'}
-                            radio_props={newData}
-                            initial={0}
-                            onPress={(value) => {
-                                this.setState({value: value})
-                            }}
-                        />
+                        {
+                            isLoadingNextQuestion
+                                ?
+                                <Loading/>
+                                :
+                                <RadioForm
+                                    style={{justifyContent: 'flex-start', alignItems: 'flex-start'}}
+                                    buttonColor={'#000'}
+                                    radio_props={newData}
+                                    initial={-1}
+                                    onPress={(value) => this.answerRadioQuestion(value)}
+                                />
+                        }
                     </View>
 
                 )
             }
             case 2 : {
+                const {isLoadingNextQuestion} = this.state;
                 return (
-                    <View>
-                        <View style={[general.wrapperRowCenter, general.marginTop]}>
-                            <SelectMultiple
-                                items={newData}
-                                selectedItems={this.state.selectedFruits}
-                                onSelectionsChange={this.onSelectionsChange}/>
-                        </View>
+                    <View style={[general.wrapperRowCenter, general.marginTop]}>
+                        {
+                            isLoadingNextQuestion
+                                ?
+                                <Loading/>
+                                :
+                                <SelectMultiple
+                                    items={newData}
+                                    selectedItems={this.state.selectedChk}
+                                    onSelectionsChange={(value) => this.answerSelectQuestion(value)}/>
+                        }
                     </View>
                 )
             }
         }
+    }
+
+    isLoading() {
+        this.setState({isLoadingNextQuestion: true});
+        setTimeout(() => this.setState({isLoadingNextQuestion: false}), 200);
     }
 
     componentWillMount() {
@@ -86,18 +145,33 @@ class DetailSurveyContainer extends Component {
         this.props.surveyAction.getDataSurveyQuestion(id, this.props.token);
     }
 
-    answerQuestion(number) {
+    componentWillReceiveProps(nextProps) {
+        this.setState({index: -1})
+    }
+
+    answerQuestion(number, type, id_question) {
+        this.isLoading()
         const {questions_count, name, description, staff, today} = this.props.navigation.state.params;
-        if (this.state.questionNumber < questions_count)
+        const {id} = this.props.lesson;
+        console.log('ANSWER : ' + this.state.answer);
+        this.resetAnswer();
+        if (this.state.questionNumber < questions_count) {
+            this.sentAnswerSurveyQuestion(id_question, this.state.answer);
             this.setState({questionNumber: number + 1});
-        else
+        }
+        else {
+            this.sentAnswerSurveyQuestion(id_question, this.state.answer);
+            this.closeSurveyLesson();
             this.props.navigation.navigate('FinishSurvey', {
                 name: name,
                 description: description,
                 staff: staff,
                 questions_count: questions_count,
                 today: today
-            })
+            });
+        }
+
+
     }
 
     render() {
@@ -105,7 +179,7 @@ class DetailSurveyContainer extends Component {
         const {navigate} = this.props.navigation;
         const {isLoadingQuestion, questions} = this.props;
         const {questionNumber} = this.state;
-        const {name, description, staff, today} = this.props.navigation.state.params;
+        const {name, description, staff, today, id} = this.props.navigation.state.params;
         let process = (size.wid - 40) / questions_count * questionNumber;
         return (
             <Container style={general.wrapperContainer}>
@@ -128,7 +202,7 @@ class DetailSurveyContainer extends Component {
                             ?
                             <Loading/>
                             :
-                            <View style={{felx: 1}}>
+                            <View style={{flex: 1}}>
                                 <View style={general.marginLR}>
                                     <Text style={[general.textTitleBig, general.marginBottom]}>
                                         {name.toUpperCase()}
@@ -156,19 +230,19 @@ class DetailSurveyContainer extends Component {
                                     {
                                         questions.questions
                                             ?
-                                            <View>
-                                                <View style={[general.wrapperRowCenter]}>
+                                            <View style={{flex: 1}}>
+                                                <View style={[general.wrapperRowCenter, {flex: 1}]}>
                                                     <View style={general.buttonQuestion}>
-                                                        <Text
-                                                            style={general.textDescriptionCardLight}>{this.state.questionNumber}</Text>
+                                                        <Text style={general.textDescriptionCardLight}>
+                                                            {this.state.questionNumber}
+                                                        </Text>
                                                     </View>
                                                     <Text
-                                                        style={[general.textTitleCard, general.paddingLR]}>{questions.questions[questionNumber - 1].content.trim()}</Text>
-                                                    <View style={general.wrapperSpace}/>
+                                                        style={[general.textTitleCard, general.paddingLR, general.marginRight]}>{questions.questions[questionNumber - 1].content.trim()}</Text>
                                                 </View>
                                                 <View style={general.marginTop}>
                                                     {
-                                                        this.questionType(questions.questions[questionNumber - 1].type, questions.questions[questionNumber - 1].answers)
+                                                        this.questionType(questions.questions[questionNumber - 1].type, questions.questions[questionNumber - 1].answers, questions.questions[questionNumber - 1].id)
                                                     }
                                                 </View>
                                             </View>
@@ -179,7 +253,15 @@ class DetailSurveyContainer extends Component {
                             </View>
                     }
                 </Content>
-                <NextButton function={() => this.answerQuestion(this.state.questionNumber)}/>
+                <NextButton
+                    displayStatus={this.state.answer == '' ? 'none' : 'flex'}
+                    function={
+                        () =>
+                            this.answerQuestion(
+                                this.state.questionNumber,
+                                questions.questions[questionNumber - 1].type,
+                                questions.questions[questionNumber - 1].id
+                            )}/>
             </Container>
         );
     }
@@ -189,7 +271,9 @@ function mapStateToProps(state) {
     return {
         token: state.login.token,
         questions: state.survey.questions,
-        isLoadingQuestion: state.survey.isLoadingQuestion
+        isLoadingQuestion: state.survey.isLoadingQuestion,
+        isLoadingAnswer: state.survey.isLoadingAnswer,
+        lesson: state.survey.lesson
     }
 }
 

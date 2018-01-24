@@ -38,8 +38,7 @@ export const style = {
     },
 
     wrapperLogin : {
-        width:wid,
-        flex:7/8,
+        flex:1,
         justifyContent:'center',
         alignItems:'center'
     },
@@ -477,6 +476,7 @@ export const style = {
     wrapperSurvey: {
         width: wid - 40,
         borderRadius: 15,
+        backgroundColor: '#FFF'
     },
     wrapperLoginButton:{
         marginTop:50,
@@ -507,7 +507,7 @@ export const style = {
         borderRadius: 40,
         width: 80,
         height: 80,
-        backgroundColor: '#23ff4b',
+        backgroundColor: '#33cc00',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -600,7 +600,7 @@ export const style = {
     imageRectangle: {
         width: wid / 3,
         height: hei / 3 - 30,
-        backgroundColor: color.loadingImage
+        backgroundColor: color.background
     },
 
     linearGradient: {

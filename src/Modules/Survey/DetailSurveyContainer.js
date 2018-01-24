@@ -66,6 +66,14 @@ class DetailSurveyContainer extends Component {
                         <Text style={[general.textTitleBig, general.marginBottom]}>{data.name.toUpperCase()}</Text>
                         <Text style={general.textDescriptionCard}>{data.description}</Text>
                     </View>
+                    <View style={general.wrapperRowCenter}>
+                        <Image style={general.imageCircleTiny}
+                               source={{uri: data.user ? data.user.avatar_url : ''}}
+                        />
+                        <Text
+                            style={[general.textNameCard, general.paddingLine]}>&nbsp;&nbsp;{data.user ? data.user.name.toUpperCase() : ''}<Text
+                            style={general.textTimeCard}>&nbsp;-&nbsp;{data.created_at}</Text></Text>
+                    </View>
                     <View style={general.wrapperSpace}/>
                     <Image
                         style={general.imageFullWidth}

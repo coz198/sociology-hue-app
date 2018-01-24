@@ -6,6 +6,8 @@ import RegisterContainer from '../Modules/Login/RegisterContainer';
 import BlogContainer from '../Modules/Blog/BlogContainer';
 import SurveyContainer from '../Modules/Survey/SurveyContainer';
 import DetailSurveyContainer from '../Modules/Survey/DetailSurveyContainer';
+import HistorySurveyContainer from '../Modules/Survey/HistorySurveyContainer';
+import DetailHistorySurveyContainer from '../Modules/Survey/DetailHistorySurveyContainer';
 import QuestionSurveyContainer from '../Modules/Survey/QuestionSurveyContainer';
 import FinishSurveyContainer from '../Modules/Survey/FinishSurveyContainer';
 import RuleContainer from '../Modules/Rule/RuleContainer';
@@ -18,10 +20,6 @@ const StackNavigatorStyle = {
         header: null,
     },
 };
-const HomeStackNavigator = StackNavigator({
-    HomeContainer: {screen: HomeContainer},
-    BlogContainer: {screen: BlogContainer},
-}, StackNavigatorStyle);
 
 const Drawer = DrawerNavigator(
     {
@@ -31,6 +29,8 @@ const Drawer = DrawerNavigator(
         Survey: {screen: SurveyContainer},
         DetailSurvey: {screen: DetailSurveyContainer},
         QuestionSurvey: {screen: QuestionSurveyContainer},
+        HistorySurvey: {screen: HistorySurveyContainer},
+        DetailHistorySurvey: {screen: DetailHistorySurveyContainer},
         FinishSurvey: {screen: FinishSurveyContainer},
         Rule: {screen: RuleContainer},
     },
@@ -42,9 +42,9 @@ const Drawer = DrawerNavigator(
 );
 export const Main = StackNavigator(
     {
-        Login: {screen: LoginContainer},
         DrawerMain: {screen: Drawer},
-        // Register: {screen: RegisterContainer},
+        Login: {screen: LoginContainer},
+        Register: {screen: RegisterContainer},
 
     },
     {headerMode: 'none'}

@@ -12,7 +12,6 @@ export function getListBlog(page) {
                     type: types.GET_LIST_BLOG_SUCCESS,
                     blogs: res.data.blogs
                 });
-                console.log(res.data.blogs)
             })
             .catch(function (error) {
                 throw (error);
@@ -31,7 +30,6 @@ export function searchBlog(page, text) {
                     type: types.SEARCH_BLOG_SUCCESS,
                     blogs: res.data.blogs
                 });
-                console.log(res.data.blogs)
             })
             .catch(function (error) {
                 throw (error);
@@ -70,7 +68,6 @@ export function getMoreListBlog(page) {
                     type: types.GET_MORE_LIST_BLOG_SUCCESS,
                     blogs: res.data.blogs,
                 });
-                console.log(res.data.blogs)
             })
             .catch(function (error) {
                 throw (error);

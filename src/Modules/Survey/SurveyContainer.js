@@ -9,6 +9,7 @@ import general from '../../Styles/generalStyle';
 import * as surveyAction from './surveyAction';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import * as size from "../../Styles/size";
 
 
 class SurveyContainer extends Component {
@@ -20,7 +21,7 @@ class SurveyContainer extends Component {
         }
     }
 
-    componentWillMount(){
+    componentWillMount() {
         this.props.surveyAction.getDataSurvey(this.props.token)
     }
 
@@ -28,8 +29,7 @@ class SurveyContainer extends Component {
     render() {
         const top = this.state.searchMove;
         const {navigate} = this.props.navigation;
-        const {surveys} = this.props;
-        const {isLoading, blogs, isRefreshing, isLoadingSearch} = this.props;
+        const {surveys, isLoading} = this.props;
         return (
             <Container style={general.wrapperContainer}>
                 <View style={[general.wrapperHeader, general.paddingBorder]}>
@@ -51,29 +51,41 @@ class SurveyContainer extends Component {
                             ?
                             <Loading/>
                             :
-                                <FlatList
-                                    ref="listRef"
-                                    showsVerticalScrollIndicator={false}
-                                    data={surveys}
-                                    renderItem={({item}) =>
-                                        <TouchableOpacity
-                                            onPress={() => navigate('DetailSurvey', {data : item})}
-                                            activeOpacity={1}
-                                            style={[general.shadow, general.marginBottom, general.wrapperSurvey, general.paddingFar, general.margin, general.marginBottomFar]}>
-                                                <Text style={general.textTitleCard}>{item.name.toUpperCase()}</Text>
-                                                <View style={general.wrapperRowCenter}>
-                                                    <Image style={general.imageCircleTiny}
-                                                           source={{uri: item.staff ? 'http://' + item.staff.avatar_url : ''}}
-                                                    />
-                                                    <Text style={[general.textNameCard, general.paddingLine]}>&nbsp;&nbsp;{item.staff ? item.staff.name.toUpperCase() : ''}<Text style={general.textTimeCard}>&nbsp;-&nbsp;{item.created_at}</Text></Text>
-                                                </View>
-                                                <Text style={general.textDescriptionCard}>{item.description}</Text>
-                                                <Text
-                                                    style={[general.categoryInImage, general.textDescriptionCardLight]}>{item.questions_count} câu hỏi</Text>
-                                                <View style={general.wrapperSpace} />
-                                        </TouchableOpacity>
-                                    }
-                                />
+                            <FlatList
+                                ref="listRef"
+                                showsVerticalScrollIndicator={false}
+                                data={surveys}
+                                renderItem={({item}) =>
+                                    <TouchableOpacity
+                                        onPress={() => navigate('DetailSurvey', {data: item})}
+                                        activeOpacity={1}
+                                        style={[general.shadow, general.marginBottom, general.wrapperSurvey, general.paddingFar, general.margin, general.marginBottomFar]}>
+                                        <Text style={general.textTitleCard}>{item.name.toUpperCase()}</Text>
+                                        <View style={general.wrapperRowCenter}>
+                                            <Image style={general.imageCircleTiny}
+                                                   source={{uri: item.staff ? 'http://' + item.staff.avatar_url : ''}}
+                                            />
+                                            <Text
+                                                style={[general.textNameCard, general.paddingLine]}>&nbsp;&nbsp;{item.staff ? item.staff.name.toUpperCase() : ''}<Text
+                                                style={general.textTimeCard}>&nbsp;-&nbsp;{item.created_at}</Text></Text>
+                                        </View>
+                                        <Text
+                                            style={[general.textDescriptionCard, general.marginBottom]}>{item.description}</Text>
+                                        <View style={[general.wrapperProcessDark, general.marginTop]}>
+                                            <View
+                                                style={[general.process, {width: item.target > item.take ? (size.wid - 80) / item.target * item.take : (size.wid - 80)}]}/>
+                                        </View>
+                                        <View style={general.wrapperSpace}/>
+                                        <Text style={[general.categoryInImage, general.textDescriptionCardLight]}>
+                                            {item.questions_count} câu hỏi
+                                        </Text>
+                                        <Text style={[general.textTimeCard, {position: 'absolute', bottom: 10, left: 20,}]}>
+                                            {item.take} / {item.target}
+                                        </Text>
+                                        <View style={general.wrapperSpace}/>
+                                    </TouchableOpacity>
+                                }
+                            />
                     }
                 </View>
             </Container>

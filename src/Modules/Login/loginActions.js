@@ -24,6 +24,7 @@ export function loginUser(login) {
                     user: response.data.user,
                     loginStatus: true,
                 });
+                console.log(response.data.user)
             })
             .catch(function (error) {
                 dispatch({
@@ -41,6 +42,7 @@ export function loginUser(login) {
             })
     }
 }
+
 
 export function updateDataLogin(login) { // ham na update vao bo nho cac gia tri nhap vao de login
     return {
@@ -61,7 +63,7 @@ export function skipLogin() {
 export function getDataLogin(status = 0) {
     return async function (dispatch) {
         try {
-            const email = await AsyncStorage.getItem('@ColorMe:email'); // lấy data đang tồn
+            const email = await AsyncStorage.getItem('@ColorMe:email');
             const password = await AsyncStorage.getItem('@ColorMe:password');
             dispatch(autoLogin(
                 {

@@ -29,6 +29,7 @@ class FinishSurveyContainer extends Component {
         const {navigate} = this.props.navigation;
         const {questionNumber} = this.state;
         const {name, description, staff, today} = this.props.navigation.state.params;
+        const {isLoadingCloseSurvey} = this.props;
         return (
             <Container style={general.wrapperContainer}>
                 <View style={[general.wrapperHeader, general.paddingBorder]}>
@@ -45,44 +46,57 @@ class FinishSurveyContainer extends Component {
                     <HamburgerButton navigate={navigate}/>
                 </View>
                 <View style={{flex: 1}}>
-                    <View style={general.marginLR}>
-                        <Text style={[general.textTitleBig, general.marginBottom]}>
-                            {name.toUpperCase()}
-                        </Text>
-                        <View style={general.wrapperRowCenter}>
-                            <Image style={general.imageCircleTiny}
-                                   source={{uri: 'http://' + staff.avatar_url}}
-                            />
-                            <Text
-                                style={[general.textNameCard, general.paddingLine]}>&nbsp;&nbsp;{staff.name.toUpperCase()}
-                                <Text style={general.textTimeCard}>&nbsp;-&nbsp;
-                                    {today}
-                                </Text>
-                            </Text>
-                        </View>
-                        <Text style={[general.textDescriptionCard, general.paddingLine]}>{description}</Text>
-                        <Text/>
-                    </View>
-                    <View style={general.wrapperCenter}>
-                        <View style={general.wrapperSpace}/>
-                        <View style={[general.buttonDone, general.shadow]}>
-                            <Icon
-                                name="material|done"
-                                size={50}
-                                color={'#FFF'}
-                                style={{backgroundColor: 'transparent'}}
-                            />
-                        </View>
-                        <View style={general.wrapperSpace}/>
-                        <View style={general.wrapperSpace}/>
-                        <Text style={general.textTitleBigThin}>HOÀN THÀNH!</Text>
-                        <View style={general.wrapperSpace}/>
-                        <Text style={general.textDescriptionCard}>Cuộc khảo sát hoàn tất</Text>
-                        <Text style={[general.textDescriptionCard, {textAlign: 'center'}]}>Cảm ơn bạn đã dành thời gian cho Sociology Hue</Text>
+                    {
+                        isLoadingCloseSurvey
+                            ?
+                            <Loading/>
+                            :
+                            <View>
+                                <View style={general.marginLR}>
+                                    <Text style={[general.textTitleBig, general.marginBottom]}>
+                                        {name.toUpperCase()}
+                                    </Text>
+                                    <View style={general.wrapperRowCenter}>
+                                        <Image style={general.imageCircleTiny}
+                                               source={{uri: 'http://' + staff.avatar_url}}
+                                        />
+                                        <Text
+                                            style={[general.textNameCard, general.paddingLine]}>&nbsp;&nbsp;{staff.name.toUpperCase()}
+                                            <Text style={general.textTimeCard}>&nbsp;-&nbsp;
+                                                {today}
+                                            </Text>
+                                        </Text>
+                                    </View>
+                                    <Text style={[general.textDescriptionCard, general.paddingLine]}>{description}</Text>
+                                    <Text/>
+                                </View>
+                                <View style={general.wrapperCenter}>
+                                    <View style={general.wrapperSpace}/>
+                                    <View style={[general.buttonDone, general.shadow]}>
+                                        <Icon
+                                            name="material|done"
+                                            size={50}
+                                            color={'#FFF'}
+                                            style={{backgroundColor: 'transparent'}}
+                                        />
+                                    </View>
+                                    <View style={general.wrapperSpace}/>
+                                    <View style={general.wrapperSpace}/>
+                                    <Text style={general.textTitleBigThin}>HOÀN THÀNH!</Text>
+                                    <View style={general.wrapperSpace}/>
+                                    <Text style={general.textDescriptionCard}>Cuộc khảo sát hoàn tất</Text>
+                                    <Text style={[general.textDescriptionCard, {textAlign: 'center'}]}>Cảm ơn bạn đã dành thời
+                                        gian cho Sociology Hue</Text>
 
-                    </View>
+                                </View>
+                            </View>
+
+                    }
+
                 </View>
-                <NextButton function={() => {navigate('DetailSurvey')}}/>
+                <NextButton function={() => {
+                    navigate('DetailSurvey')
+                }}/>
             </Container>
         );
     }
@@ -90,11 +104,13 @@ class FinishSurveyContainer extends Component {
 
 function mapStateToProps(state) {
     return {
+        isLoadingCloseSurvey: state.survey.isLoadingCloseSurvey
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
+        surveyAction: bindActionCreators(surveyAction, dispatch)
     }
 }
 

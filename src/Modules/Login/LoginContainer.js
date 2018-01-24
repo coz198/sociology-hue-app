@@ -73,9 +73,7 @@ class LoginContainer extends Component {
         return (
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                                   keyboardVerticalOffset={Platform.OS === 'ios' ? undefined : 200}
-                                  style={general.wrapperContainer}
-            >
-
+                                  style={general.wrapperContainer}>
                 <StatusBar
                     barStyle="dark-content"
                     backgroundColor={color.background}
@@ -139,22 +137,18 @@ class LoginContainer extends Component {
                                 }
                             </TouchableOpacity>
                         </View>
-                        {/*<View style={{marginTop: 20}}>*/}
-                            {/*<Text style={[general.textLogin, {fontSize: 11}]}*/}
-                                  {/*onPress={() => navigate('Register')}>DON'T HAVE AN ACCOUNT?*/}
-                                {/*REGISTER</Text>*/}
-                        {/*</View>*/}
+                        <View style={{marginTop: 20, marginBottom: 20}}>
+                            {/*<Text style={general.textLogin}*/}
+                                  {/*onPress={() => navigate('Register')}>ĐĂNG KÝ TÀI KHOẢN</Text>*/}
+                        </View>
+
                     </View>
-                    {/*<View style={{justifyContent: 'center', alignItems: 'center', bottom: -size.hei / 6}}>*/}
-                        {/*<Text style={[general.textLogin, {fontSize: 11}]}>FORGOT PASSWORD</Text>*/}
-                    {/*</View>*/}
-                    <View style={[general.wrapperCenter, {bottom: -size.hei / 5}]}>
-                        <Text onPress={() => this.skipLogin()} style={[general.textDescriptionCard]}>BỎ QUA ĐĂNG NHẬP</Text>
+
+                    <View style={{position: 'absolute', bottom: 20}}>
+                        <Text onPress={() => this.skipLogin()} style={[general.textLogin]}>BỎ QUA ĐĂNG NHẬP</Text>
                     </View>
                 </View>
             </KeyboardAvoidingView>
-
-
         )
     }
 }

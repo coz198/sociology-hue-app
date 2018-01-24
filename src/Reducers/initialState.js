@@ -40,7 +40,15 @@ export default {
     survey: {
         isLoading: false,
         isLoadingQuestion: false,
-        surveys: [],
-        questions: [],
+        isLoadingCloseSurvey: false,
+        isLoadingMoreHistorySurvey: false,
+        isRefreshingHistorySurvey: false,
+        isLoadingAnswer: false,
+        surveys: {},
+        statusAnswer: 0,
+        questions: {},
+        lesson: {},
+        historySurvey: [],
+        isLoadingHistorySurvey: false,
     },
 }
