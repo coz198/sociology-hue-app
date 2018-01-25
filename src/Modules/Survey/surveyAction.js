@@ -43,22 +43,17 @@ export function refreshDataSurvey(token) {
         dispatch({
             type: types.BEGIN_REFRESH_SURVEY
         });
-        console.log('refresh')
         surveyApi.surveyApi(1, token)
             .then(function (res) {
                 dispatch({
                     type: types.REFRESH_SURVEY_SUCCESS,
                     surveys: res.data.surveys,
                 });
-                console.log('refresh s')
-
             })
             .catch(function (error) {
                 dispatch({
                     type: types.REFRESH_SURVEY_ERROR,
                 })
-                console.log('refresh r')
-
             });
     }
 }

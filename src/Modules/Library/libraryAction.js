@@ -30,7 +30,6 @@ export function searchBook(page, text, type) {
                     type: types.SEARCH_BOOK_SUCCESS,
                     books: res.data.books,
                 });
-                console.log(res.data.books)
             })
             .catch(function (error) {
                 throw (error);
@@ -49,7 +48,6 @@ export function searchMoreBook(page, text, type) {
                     type: types.SEARCH_MORE_BOOK_SUCCESS,
                     books: res.data.books,
                 });
-                console.log(res.data.books)
             })
             .catch(function (error) {
                 throw (error);

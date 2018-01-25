@@ -24,7 +24,7 @@ class SurveyContainer extends Component {
         this.props.surveyAction.getDataSurvey(1, this.props.token)
     }
 
-    getMoreListHistorySurvey() {
+    getMoreLisSurvey() {
         const {surveys, surveyAction, token} = this.props;
         if (surveys.length >= this.state.page * 20) {
             let page = this.state.page + 1;
@@ -76,6 +76,10 @@ class SurveyContainer extends Component {
                                             () => this.props.surveyAction.refreshDataSurvey(this.props.token)
                                         }
                                     />
+                                }
+                                onEndReachedThreshold={5}
+                                onEndReached={
+                                    () => this.getMoreLisSurvey()
                                 }
                                 ListFooterComponent={
                                     this.loadMore()

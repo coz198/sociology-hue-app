@@ -8,7 +8,7 @@ export default function registerReducer (state = initialState.register, action) 
                 ...state,
                 ...{
                     isLoading : true,
-                    error : action.error,
+                    error : false,
                 }
             };
         case registerTypes.REGISTER_SUCCESS :
@@ -16,8 +16,8 @@ export default function registerReducer (state = initialState.register, action) 
                 ...state,
                 ...{
                     isLoading : false,
-                    error : action.error,
-                    status : action.status
+                    error : false,
+                    status : 1
                 }
             };
         case registerTypes.REGISTER_ERROR :
@@ -25,8 +25,8 @@ export default function registerReducer (state = initialState.register, action) 
                 ...state,
                 ...{
                     isLoading : false,
-                    error : action.error,
-                    status: action.status,
+                    error : true,
+                    status: 0,
                 }
             };
         default :

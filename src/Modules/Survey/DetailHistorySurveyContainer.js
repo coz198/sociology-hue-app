@@ -1,16 +1,19 @@
 import React, {Component} from 'react';
 import {
     FlatList, Image, RefreshControl, Text, TouchableOpacity, View, Animated, Easing, Keyboard,
-    Linking,
+    Platform
 } from 'react-native';
-import {Container, Content, Item, Left, Right, Button, Input, ListItem, CheckBox, Toast, Root} from 'native-base';
+import {Container, Content, Item, Left, Right, Button, Input, ListItem} from 'native-base';
 import HamburgerButton from '../../Commons/HamburgerButton';
-import BackButton from '../../Commons/BackButton';
+import Loading from '../../Commons/Loading';
+import NextButton from '../../Commons/NextButton';
 import Icon from '../../Commons/Icon';
 import general from '../../Styles/generalStyle';
 import * as surveyAction from './surveyAction';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import parallaxStyle from '../../Styles/parallaxStyle';
 import RadioForm from 'react-native-simple-radio-button';
 import SelectMultiple from 'react-native-select-multiple'
 import * as color from "../../Styles/color";
@@ -18,31 +21,52 @@ import * as color from "../../Styles/color";
 class DetailHistorySurveyContainer extends Component {
     constructor() {
         super();
-        this.state = {}
+        this.state = {
+            historyAnswerQuestion: {},
+            page: 1,
+            isLoadingNextQuestion: false
+        }
+    }
+
+    isLoading() {
+        this.setState({isLoadingNextQuestion: true});
+        setTimeout(() => this.setState({isLoadingNextQuestion: false}), 200);
     }
 
     componentWillMount() {
-
+        const {index} = this.props.navigation.state.params.data;
+        this.setState({historyAnswerQuestion: this.props.historySurvey[index], page: index});
     }
 
-    typeAnswer(type, item){
-        switch (type){
-            case 0:{
-                return(
+    nextQuestion() {
+        let page = 0;
+        if (this.state.page == this.props.historySurvey.length - 1)
+            page = 0;
+        else
+            page = this.state.page + 1;
+        this.setState({page: page});
+        this.setState({historyAnswerQuestion: this.props.historySurvey[page]});
+        this.isLoading();
+    }
+
+    typeAnswer(type, item) {
+        switch (type) {
+            case 0: {
+                return (
                     <View style={{marginLeft: 50}}>
                         <Text style={general.textDescriptionCard}>{item.answer}</Text>
                     </View>
                 )
 
             }
-            case 1:{
+            case 1: {
                 return (
                     <View style={{marginLeft: 50}}>
                         <Text style={general.textDescriptionCard}>{item.answer}</Text>
                     </View>
                 )
             }
-            case 2:{
+            case 2: {
                 return (
                     <View style={{marginLeft: 50}}>
                         <Text style={general.textDescriptionCard}>{item.answer}</Text>
@@ -54,60 +78,101 @@ class DetailHistorySurveyContainer extends Component {
 
 
     render() {
-        const {data} = this.props.navigation.state.params;
         const {goBack} = this.props.navigation;
         const {navigate} = this.props.navigation;
+        const {isLoadingNextQuestion, historyAnswerQuestion} = this.state;
         return (
             <Container style={general.wrapperContainer}>
-                <View style={[general.wrapperHeader, general.paddingBorder]}>
-                    <TouchableOpacity
-                        onPress={() => navigate('HistorySurvey')}
-                        activeOpacity={1}
-                        style={{flex: 1, marginLeft: -10}}
-                    >
-                        <Icon name="entypo|chevron-thin-left"
-                              size={25}
-                              color={color.iconColor}
-                        />
-                    </TouchableOpacity>
-                    <HamburgerButton navigate={navigate}/>
-                </View>
-                <Content style={[{flex: 1}, general.paddingLR]}>
-                    <Text style={[general.textTitleBig, general.marginBottom]}>{data.survey.name.toUpperCase()}</Text>
-                    <Text style={general.textDescriptionCard}>{data.survey.description}</Text>
-                    <View style={general.paddingLine}/>
-                    <View style={general.wrapperRowCenter}>
-                        <Image style={general.imageCircleTiny}
-                               source={{uri: data.user ? data.user.avatar_url : ''}}
-                        />
-                        <Text
-                            style={[general.textNameCard, general.paddingLine]}>&nbsp;&nbsp;{data.user ? data.user.name.toUpperCase() : ''}<Text
-                            style={general.textTimeCard}>&nbsp;-&nbsp;{data.created_at}</Text></Text>
-                    </View>
-                    <View style={general.wrapperSpace}/>
-                    <FlatList
-                        showsVerticalScrollIndicator={false}
-                        data={data.questions}
-                        renderItem={({item}) =>
-                            <View style={{marginTop: 10, marginBottom: 10}}>
-                                <View style={[general.wrapperRowCenter, {flex: 1}]}>
-                                    <View style={general.buttonQuestion}>
-                                        <Text style={general.textDescriptionCardLight}>
-                                            {item.question.order}
-                                        </Text>
-                                    </View>
-                                    <Text
-                                        style={[general.textTitleCard, general.paddingLR, general.marginRight]}>{item.question.content.trim()}</Text>
-                                </View>
-                                {
-                                    this.typeAnswer(item.question ? item.question.type : '',item)
-                                }
+                <ParallaxScrollView
+                    backgroundColor={'#FFF'}
+                    showsVerticalScrollIndicator={false}
+                    headerBackgroundColor={'#FFF'}
+                    stickyHeaderHeight={Platform.OS === 'ios' ? 70 : 60}
+                    parallaxHeaderHeight={200}
+                    backgroundSpeed={10}
+                    renderBackground={() => (
+                        <View style={general.wrapperImageFullWidth}>
+                            <View key="background">
                             </View>
+                        </View>
+                    )}
+                    renderForeground={() => (
+                        <View key="parallax-header" style={[parallaxStyle.parallaxHeaderTitle]}>
+                            <View style={general.paddingLR}>
+                                <Text
+                                    style={[general.textTitleBig, general.marginBottom]}>{historyAnswerQuestion.survey.name.toUpperCase()}</Text>
+                                <Text
+                                    style={general.textDescriptionCard}>{historyAnswerQuestion.survey.description}</Text>
+                            </View>
+                        </View>
+                    )}
+                    renderStickyHeader={() => (
+                        <View key="sticky-header" style={parallaxStyle.stickySection}>
+                            <View
+                                style={[general.wrapperCenter, Platform.OS === 'ios' ? {marginTop: 30} : {marginTop: 20}]}>
+                                <Text style={[general.textTitleBig, {paddingLeft: 50, paddingRight: 50}]}
+                                      numberOfLines={1}>
+                                    {historyAnswerQuestion.survey.name}
+                                </Text>
+                            </View>
+                        </View>
+                    )}
+                    renderFixedHeader={() => (
+                        <View key="fixed-header" style={general.wrapperIconFixedHeader}>
+                            <Left style={Platform.OS === 'ios' ? {marginTop: 20} : {marginTop: 10}}>
+                                <TouchableOpacity
+                                    onPress={() => navigate('HistorySurvey')}
+                                    activeOpacity={1}
+                                    style={[general.padding, general.wrapperBackButton]}
+                                >
+                                    <Icon name="entypo|chevron-thin-left"
+                                          size={25}
+                                          color={color.iconColor}
+                                    />
+                                </TouchableOpacity>
+                            </Left>
+                        </View>
+                    )}
+                >
+                    <View style={general.paddingLR}>
+                        {
+                            isLoadingNextQuestion
+                                ?
+                                <Loading/>
+                                :
+                                historyAnswerQuestion.questions.length != 0
+                                    ?
+                                    <FlatList
+                                        showsVerticalScrollIndicator={false}
+                                        data={historyAnswerQuestion.questions}
+                                        renderItem={({item}) =>
+                                            <View key={item.id} style={{marginTop: 10, marginBottom: 10}}>
+                                                <View style={[general.wrapperRowCenter, {flex: 1}]}>
+                                                    <View style={general.buttonQuestion}>
+                                                        <Text style={general.textDescriptionCardLight}>
+                                                            {item.question.order}
+                                                        </Text>
+                                                    </View>
+                                                    <Text
+                                                        style={[general.textTitleCard, general.paddingLR, general.marginRight]}>{item.question.content.trim()}</Text>
+                                                </View>
+                                                {
+                                                    this.typeAnswer(item.question ? item.question.type : '', item)
+                                                }
+                                            </View>
+                                        }
+                                    />
+                                    :
+                                    <View>
+                                        <Text style={general.textTitleCard}>Bạn chưa trả lời câu hỏi nào cho cuộc khảo sát này.</Text>
+                                    </View>
                         }
-                    />
+
+                    </View>
                     <View style={general.wrapperBottomModule}/>
-                </Content>
-                {/*<NextButton function={() => navigate('')}/>*/}
+                    <View style={general.wrapperSpace}/>
+                </ParallaxScrollView>
+                <NextButton function={() => this.nextQuestion()}/>
             </Container>
         );
     }
@@ -116,7 +181,7 @@ class DetailHistorySurveyContainer extends Component {
 function mapStateToProps(state) {
     return {
         token: state.login.token,
-        lesson: state.survey.lesson
+        historySurvey: state.survey.historySurvey,
     }
 }
 

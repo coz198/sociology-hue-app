@@ -1,42 +1,24 @@
 import * as types from '../../Constants/actionTypes';
 import * as registerApi from './registerApi'
 import {Alert,AsyncStorage} from 'react-native'
-export function beginRegister (){
-    return{
-        type : types.BEGIN_REGISTER,
-        isLoading : true,
-        error : false,
-    }
-}
-
-export function registerSuccess (response){
-    return {
-        type : types.REGISTER_SUCCESS,
-        isLoading : false,
-        error : false,
-        status : response.status,
-    }
-}
-export function registerError (error){
-    return {
-        type : types.REGISTER_ERROR,
-        isLoading: false,
-        error: true,
-        status : error.response.status,
-    }
-}
 
 export function registerUser(register){
     return (dispatch) => {
-        dispatch(beginRegister());
+        dispatch({
+            type : types.BEGIN_REGISTER,
+        });
         registerApi.register(register)
             .then( async function(response) {
-                dispatch(registerSuccess(response));
-                Alert.alert('Đăng kí thành công')
+                dispatch({
+                    type : types.REGISTER_SUCCESS,
+                });
+                Alert.alert('Đăng kí thành công', 'Chào mừng bạn đến với khoa Xã Hội Học Trường Đại Học Khoa Học Huế!')
             })
             .catch(function (error) {
                 if (error.response.data.error) {
-                    dispatch(registerError(error))
+                    dispatch({
+                        type : types.REGISTER_ERROR,
+                    })
                     if (error.response.data.error.email && error.response.data.error.username == null) {
                         Alert.alert(error.response.data.error.email)
                     }

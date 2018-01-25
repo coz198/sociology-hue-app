@@ -138,15 +138,19 @@ class LoginContainer extends Component {
                             </TouchableOpacity>
                         </View>
                         <View style={{marginTop: 20, marginBottom: 20}}>
-                            {/*<Text style={general.textLogin}*/}
-                                  {/*onPress={() => navigate('Register')}>ĐĂNG KÝ TÀI KHOẢN</Text>*/}
+                            <Text style={general.textLogin}
+                                  onPress={() => navigate('Register')}>ĐĂNG KÝ TÀI KHOẢN</Text>
                         </View>
 
                     </View>
 
-                    <View style={{position: 'absolute', bottom: 20}}>
-                        <Text onPress={() => this.skipLogin()} style={[general.textLogin]}>BỎ QUA ĐĂNG NHẬP</Text>
-                    </View>
+                    <TouchableOpacity
+                        actionOpacity={1}
+                        style={{position: 'absolute', top: size.hei * 4.7/5}}
+                        onPress={() => this.skipLogin()}
+                    >
+                        <Text style={[general.textLogin]}>BỎ QUA ĐĂNG NHẬP</Text>
+                    </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>
         )

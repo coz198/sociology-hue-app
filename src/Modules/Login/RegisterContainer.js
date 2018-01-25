@@ -11,6 +11,7 @@ import {
     Alert
 } from 'react-native';
 import * as size from '../../Styles/size';
+import BackButton from '../../Commons/BackButton';
 import {CheckBox, Container, Content, Form, Header, Input, Item, Left} from 'native-base';
 import * as registerAction from './registerAction';
 import {bindActionCreators} from 'redux';
@@ -27,7 +28,6 @@ class RegisterContainer extends Component {
             name: '',
             username: '',
             password: '',
-            checkRules: true,
         }
     }
 
@@ -39,16 +39,20 @@ class RegisterContainer extends Component {
         else if (this.state.email === '' || this.state.name === '' || this.state.username === '' || this.state.password === '') {
             Alert.alert('Có lỗi xảy ra', 'Bạn chưa nhập đủ thông tin.');
         }
-        else if (!this.state.checkRules) {
-            Alert.alert('Có lỗi xảy ra', 'Bạn chưa đồng ý với điều khoản sử dụng.');
-        }
         else {
             this.props.registerAction.registerUser(value);
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        const {navigate} = this.props.navigation;
+        if(this.props.status != nextProps.status)
+            navigate('Login')
+    }
+
     render() {
         const {navigate} = this.props.navigation;
+        const {goBack} = this.props.navigation;
         return (
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -59,15 +63,7 @@ class RegisterContainer extends Component {
                     backgroundColor={color.background}
                 />
                 <View style={{marginTop: 20}}>
-                    <TouchableOpacity
-                        style={[general.padding, general.wrapperBackButton]}
-                        onPress={() => this.props.navigation.goBack()}
-                    >
-                        <Icon name="entypo|chevron-thin-left"
-                              size={size.iconBig}
-                              color={color.iconColor}
-                        />
-                    </TouchableOpacity>
+                    <BackButton goBack={goBack}/>
                 </View>
                 <View style={[general.wrapperLogin, {padding: 20}]}>
                     <Image
