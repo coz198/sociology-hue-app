@@ -33,7 +33,7 @@ class HistorySurveyContainer extends Component {
         }
     }
     loadMore() {
-        if (this.props.isLoadingMore)
+        if (this.props.isLoadingMoreHistorySurvey)
             return (<Loading/>)
         else
             return (<View/>)
@@ -51,7 +51,7 @@ class HistorySurveyContainer extends Component {
                         <Image
                             resizeMode={'contain'}
                             source={require('../../../assets/image/logoSurvey.jpg')}
-                            style={[general.imageInHeader, {height: 30, width: 176}]}
+                            style={{height: 30, width: 176}}
                         />
                     </TouchableOpacity>
                     <HamburgerButton navigate={navigate}/>

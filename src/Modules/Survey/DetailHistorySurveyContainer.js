@@ -22,6 +22,7 @@ class DetailHistorySurveyContainer extends Component {
     }
 
     componentWillMount() {
+
     }
 
     typeAnswer(type, item){

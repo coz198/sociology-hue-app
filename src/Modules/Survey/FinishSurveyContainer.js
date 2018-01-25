@@ -40,7 +40,7 @@ class FinishSurveyContainer extends Component {
                         <Image
                             resizeMode={'contain'}
                             source={require('../../../assets/image/logoSurvey.jpg')}
-                            style={[general.imageInHeader, {height: 30, width: 176}]}
+                            style={{height: 30, width: 176}}
                         />
                     </TouchableOpacity>
                     <HamburgerButton navigate={navigate}/>

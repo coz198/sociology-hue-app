@@ -2,12 +2,12 @@ import * as surveyApi from './surveyApi';
 import * as types from '../../Constants/actionTypes';
 import * as homeApi from "../Home/homeApi";
 
-export function getDataSurvey(token) {
+export function getDataSurvey(page, token) {
     return (dispatch) => {
         dispatch({
             type: types.BEGIN_GET_SURVEY,
         });
-        surveyApi.surveyApi(token)
+        surveyApi.surveyApi(1, token)
             .then(function (res) {
                 dispatch({
                     type: types.GET_SURVEY_SUCCESS,
@@ -16,6 +16,49 @@ export function getDataSurvey(token) {
             })
             .catch(function (error) {
                throw (error);
+            });
+    }
+}
+
+export function getMoreDataSurvey(page, token) {
+    return (dispatch) => {
+        dispatch({
+            type: types.BEGIN_GET_MORE_SURVEY,
+        });
+        surveyApi.surveyApi(page, token)
+            .then(function (res) {
+                dispatch({
+                    type: types.GET_MORE_SURVEY_SUCCESS,
+                    surveys: res.data.surveys
+                });
+            })
+            .catch(function (error) {
+               throw (error);
+            });
+    }
+}
+
+export function refreshDataSurvey(token) {
+    return (dispatch) => {
+        dispatch({
+            type: types.BEGIN_REFRESH_SURVEY
+        });
+        console.log('refresh')
+        surveyApi.surveyApi(1, token)
+            .then(function (res) {
+                dispatch({
+                    type: types.REFRESH_SURVEY_SUCCESS,
+                    surveys: res.data.surveys,
+                });
+                console.log('refresh s')
+
+            })
+            .catch(function (error) {
+                dispatch({
+                    type: types.REFRESH_SURVEY_ERROR,
+                })
+                console.log('refresh r')
+
             });
     }
 }

@@ -109,7 +109,7 @@ class HomeContainer extends Component {
                         <Image
                             resizeMode={'contain'}
                             source={require('../../../assets/image/logoBlog.png')}
-                            style={[general.imageInHeader, {height: 30, width: 170}]}
+                            style={{height: 30, width: 170}}
                         />
                     </TouchableOpacity>
                     <HamburgerButton navigate={navigate}/>
@@ -161,19 +161,22 @@ class HomeContainer extends Component {
                                 }
                                 renderItem={({item}) =>
                                     <TouchableOpacity
-
+                                        key={item.id}
                                         onPress={() => navigate('BlogContainer', {id : item.id})}
                                         activeOpacity={0.9}
                                         style={[general.marginTopBottom, general.paddingLR, {marginBottom: 20}]}>
-                                        <View>
+                                        <View style={[general.shadow,general.imageFeature]}>
                                             <Image
                                                 resizeMode={'cover'}
                                                 source={{uri: 'http://' + item.url}}
-                                                style={[general.imageFeature, general.shadow]}
+                                                style={[general.imageFeature]}
                                             />
-                                            <Text
-                                                style={[general.categoryInImage, general.textDescriptionCardLight]}>{item.category ? item.category.name : 'Category'}</Text>
+                                            <Text style={[general.categoryInImage, general.textDescriptionCardLight]}>
+                                                {item.category ? item.category.name : 'Category'}
+                                            </Text>
                                         </View>
+
+
                                         <View style={{marginTop: 20}}>
                                             <Text
                                                 style={general.textTitleCard}>{item.title.toUpperCase().trim()}</Text>

@@ -12,16 +12,17 @@ export const style = {
     wrapperBackButton: {
         width: 50,
     },
-    iconInfoUp:{
+    iconInfoUp: {
         flex: 1,
-        flexDirection : 'row',
-        justifyContent:'center', alignItems:'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
         position: 'absolute',
         height: 30,
-        width: wid/2,
+        width: wid / 2,
         borderRadius: 30,
-        backgroundColor: color.mainColor,
-        bottom:-wid/10,
+        backgroundColor: color.background,
+        bottom: -wid / 10,
         right: -5
     },
     iconInNews: {
@@ -34,13 +35,16 @@ export const style = {
         borderRadius: 30,
         backgroundColor: color.mainColor,
         bottom: 50,
-        right: 50
+        right: 50,
+
     },
 
-    wrapperLogin : {
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center'
+    wrapperLogin: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: color.background,
+
     },
     itemInput: {
         width: size.wid * 0.8,
@@ -48,7 +52,7 @@ export const style = {
         alignItems: 'center'
     },
     textTitleInput: {
-        fontFamily:'Montserrat',
+        fontFamily: 'Montserrat',
         fontSize: 12,
         backgroundColor: color.none,
         paddingLeft: 25,
@@ -56,7 +60,7 @@ export const style = {
         color: color.darkGray,
     },
     inputTheme02: {
-        fontFamily:'Montserrat',
+        fontFamily: 'Montserrat',
         padding: 0,
         margin: 0,
         fontSize: 13,
@@ -64,31 +68,13 @@ export const style = {
         color: color.darkGray,
 
     },
-    imageInHeader:{
-        height: 30,
-        width: 170,
-    },
     wrapperHeader: {
         height: Platform.OS === 'android' ? 70 : 90,
         paddingTop: Platform.OS === 'ios' ? 40 : 20,
         flexDirection: 'row',
         alignItems: 'center',
-    },
-    wrapperMenuHome: {
-        flexDirection: 'row',
-        borderBottomWidth: 0.5,
-        borderBottomColor: color.textColorNotActive
-    },
-    wrapperMenuTextNotActive: {
-        paddingRight: 5,
-        marginRight: 10,
-    },
-    wrapperMenuTextIsActive: {
-        paddingBottom: 10,
-        paddingRight: 5,
-        marginRight: 10,
-        borderBottomWidth: 2,
-        borderBottomColor: color.textColor
+        backgroundColor: color.background,
+
     },
     wrapperCenterLeftToRightRow: {
         flex: 1,
@@ -232,7 +218,7 @@ export const style = {
         fontFamily: 'Montserrat-Medium',
         fontSize: size.defaultText,
     },
-    wrapperIconFixedHeader:{
+    wrapperIconFixedHeader: {
         width: wid,
         flexDirection: 'row',
         backgroundColor: color.none,
@@ -273,7 +259,7 @@ export const style = {
         fontFamily: 'Montserrat-Medium',
         fontSize: size.titleGiant,
     },
-    textAlign:{
+    textAlign: {
         textAlign: 'center'
     },
     textTitleBigThin: {
@@ -383,30 +369,30 @@ export const style = {
     imageFeature: {
         borderRadius: 15,
         height: hei / 3,
-        backgroundColor: color.loadingImage
+        backgroundColor: color.background
     },
     imageFeatureInCol: {
         height: hei / 5,
         borderRadius: 15,
-        backgroundColor: color.loadingImage
+        backgroundColor: color.background
     },
     imageFeatureHeightLow: {
         height: hei / 5,
         borderRadius: 10,
-        backgroundColor: color.loadingImage
+        backgroundColor: color.background
     },
     wrapperFeatureHeightLow: {
         height: hei / 6,
         borderRadius: 10,
         backgroundColor: color.mainColor
     },
-    imageLogin:{
+    imageLogin: {
         width: 3 * wid / 4 - 90,
-        height: hei/3,
+        height: hei / 3,
     },
     imageFullWidth: {
-        height: hei /3,
-        backgroundColor: color.loadingImage
+        height: hei / 3,
+        backgroundColor: color.background
 
     },
     wrapperModal: {
@@ -478,9 +464,9 @@ export const style = {
         borderRadius: 15,
         backgroundColor: '#FFF'
     },
-    wrapperLoginButton:{
-        marginTop:50,
-        width: wid*0.9,
+    wrapperLoginButton: {
+        marginTop: 50,
+        width: wid * 0.9,
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
@@ -511,12 +497,12 @@ export const style = {
         alignItems: 'center',
         justifyContent: 'center',
     },
-    wrapperTextDownImage:{
+    wrapperTextDownImage: {
         height: 70,
     },
     wrapperTabInImage: {
         position: 'absolute',
-        width: wid * 2/5,
+        width: wid * 2 / 5,
         height: 30,
         backgroundColor: color.mainColor,
         borderRadius: 50,
@@ -540,62 +526,60 @@ export const style = {
     imageSquareBig: {
         height: wid - 40,
         borderRadius: 15,
-        backgroundColor: color.loadingImage
+        backgroundColor: color.background
     },
     imageCircleTiny: {
         height: 16,
         width: 16,
         borderRadius: 8,
-        backgroundColor: color.loadingImage
+        backgroundColor: color.background
     },
     imageCircleNormal: {
         height: 50,
         width: 50,
         borderRadius: 25,
-        backgroundColor: color.loadingImage
+        backgroundColor: color.background
     },
     imageCircleBig: {
         height: 100,
         width: 100,
         borderRadius: 50,
-        backgroundColor: color.loadingImage
+        backgroundColor: color.background
     },
     imageSquare: {
         height: wid / 2,
         width: wid / 2,
         borderRadius: 15,
-        backgroundColor: color.loadingImage
+        backgroundColor: color.background
     },
     textBigLight: {
         paddingBottom: 0,
-        fontFamily: (Platform.OS === 'ios') ? 'Montserrat' : 'Montserrat-Medium',
+        fontFamily: 'Montserrat',
         fontSize: 13,
-        fontWeight: Platform.OS === 'ios' ? '600' : 'normal',
         color: color.navTitle,
     },
-    textLogin:{
-            paddingBottom: 0,
-            fontFamily: (Platform.OS === 'ios') ? 'Montserrat' : 'Montserrat-Medium',
-            fontSize: 13,
-            fontWeight: Platform.OS === 'ios' ? '400' : 'normal',
-            color: color.darkGray,
+    textLogin: {
+        paddingBottom: 0,
+        fontFamily: 'Montserrat',
+        fontSize: 13,
+        color: color.darkGray,
     },
     imageSquareSmall: {
         height: (wid - 60) / 3,
         width: (wid - 60) / 3,
         borderRadius: 15,
-        backgroundColor: color.loadingImage
+        backgroundColor: color.background
     },
     imageRectangleSmall: {
         width: wid / 5,
         height: wid / 5 * 1.5,
-        backgroundColor: color.loadingImage
+        backgroundColor: color.background
     },
     imageSquareAvatar: {
         height: wid / 5,
         width: wid / 5,
         borderRadius: 10,
-        backgroundColor: color.loadingImage
+        backgroundColor: color.background
     },
     imageRectangle: {
         width: wid / 3,
@@ -732,11 +716,11 @@ export const style = {
         marginTop: 10,
         marginBottom: 10
     },
-    shadow: {
+    shadow: Platform.OS === 'ios' ? {
         shadowColor: color.shadowColor,
         shadowOffset: {width: 0, height: 3},
         shadowOpacity: 0.3,
-    },
+    } : {},
     itemTabInDrawer: {
         alignItems: 'center',
         flexDirection: 'row',
@@ -749,7 +733,7 @@ export const style = {
         height: 5,
         backgroundColor: color.textColorNotActive,
     },
-    categoryInImage:{
+    categoryInImage: {
         position: 'absolute',
         bottom: 10,
         right: 10,
@@ -760,7 +744,7 @@ export const style = {
         borderRadius: 13,
         overflow: "hidden"
     },
-    categoryAbsolute:{
+    categoryAbsolute: {
         position: 'absolute',
         backgroundColor: color.mainColor,
         padding: 5,
@@ -770,7 +754,7 @@ export const style = {
         overflow: "hidden"
     },
 
-    category:{
+    category: {
         backgroundColor: color.mainColor,
         padding: 5,
         paddingLeft: 10,
@@ -788,7 +772,7 @@ export const style = {
         height: 3,
         backgroundColor: 'rgba(0, 0, 0, 0.2)',
     },
-    process:{
+    process: {
         height: 3,
         backgroundColor: color.mainColor
     },
@@ -831,50 +815,24 @@ export const style = {
         borderColor: 'rgba(214,214,214, 0.6)',
     },
 
-    wrapperItemTrello: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
     wrapperBottomModule: {
         height: 50,
     },
-
     wrapperSpace: {
         height: 20,
-    },
-    trelloCart: {
-        borderRadius: 10,
-        width: wid * 0.9,
-        height: hei * 0.75,
-        backgroundColor: '#f2f2f2',
-    },
-    contentTrello: {
-        flex: 1,
-        backgroundColor: 'rgb(192, 198, 209)'
-    },
-    wrapperItem: {
-        width: wid * 0.9 - 40,
-        height: 70,
-        backgroundColor: '#FFF'
-    },
-    itemInCardTrello: {
-        width: wid * 0.8,
-        backgroundColor: '#ffffff',
-        padding: 10,
-        flex: 1
     },
     inputTheme: {
         fontSize: size.titleNormal,
         width: wid * 0.7,
     },
-    buttonSearchInSearchInput:{
+    buttonSearchInSearchInput: {
         width: 40,
         height: 40,
         backgroundColor: color.mainColor,
         justifyContent: 'center',
         alignItems: 'center',
     },
-    buttonQuestion:{
+    buttonQuestion: {
         width: 30,
         height: 30,
         borderRadius: 15,
@@ -882,37 +840,34 @@ export const style = {
         justifyContent: 'center',
         alignItems: 'center',
     },
-    colorDark: {
-        color: 'black'
-    },
     buttonUser: {
         padding: 3,
         borderRadius: 5,
     },
-    buttonOrder:{
-        backgroundColor:color.mainColor,
+    buttonOrder: {
+        backgroundColor: color.mainColor,
         height: 30,
         borderRadius: 20,
     },
-    buttonSearch:{
+    buttonSearch: {
         position: 'absolute',
         bottom: 20,
         right: 10,
-        backgroundColor:color.mainColor,
+        backgroundColor: color.mainColor,
         width: 60,
         height: 60,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 30,
     },
-    buttonSelect:{
-        width: wid/2,
+    buttonSelect: {
+        width: wid / 2,
         height: 48,
         justifyContent: 'center',
         alignItems: 'flex-start',
     },
-    buttonSmall:{
-        backgroundColor:color.mainColor,
+    buttonSmall: {
+        backgroundColor: color.mainColor,
         height: 30,
         borderRadius: 5,
     }

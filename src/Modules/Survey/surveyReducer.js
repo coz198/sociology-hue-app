@@ -18,6 +18,52 @@ export default function blogReducer(state = initialState.survey, action) {
                     isLoading: false,
                 }
             };
+        case types.BEGIN_GET_MORE_SURVEY:
+            return {
+                ...state,
+                ...{
+                    isLoadingMoreSurvey: true,
+                }
+            };
+        case types.GET_MORE_SURVEY_SUCCESS:
+            return {
+                ...state,
+                ...{
+                    surveys: [...state.surveys,...action.surveys],
+                    isLoadingMoreSurvey: false,
+                }
+            };
+        case types.BEGIN_REFRESH_SURVEY :
+            return {
+                ...state,
+                ...{
+                    isRefreshingSurvey : true
+                }
+            };
+        case types.REFRESH_SURVEY_ERROR :
+            return {
+                ...state,
+                ...{
+                    isRefreshingSurvey : false
+                }
+            };
+        case types.REFRESH_SURVEY_SUCCESS: {
+            let array1 = state.surveys.slice(0, 20);
+            let array2 = action.surveys;
+            let array3 = [];
+            for (let i = 0; i < 21; i++) {
+                if (array2[i].id !== array1[i].id) {
+                    array3.push(array2[i]);
+                }
+            }
+            return {
+                ...state,
+                ...{
+                    isRefreshingSurvey: false,
+                    surveys: [array3, ...state.surveys]
+                }
+            }
+        }
         case types.BEGIN_GET_SURVEY_QUESTION:
             return {
                 ...state,

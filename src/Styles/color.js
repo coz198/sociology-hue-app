@@ -5,7 +5,7 @@ export const background = '#FFF';
 export const textColor = '#000000';
 export const iconColor = '#000000';
 export const mainColor  = '#c50000';
-export const loadingImage = Platform.OS === 'IOS' ? 'rgba(224, 224, 224, 0.5)' : 'transparent';
+export const loadingImage = '#FFF';
 export const themeColor = '#FFFFFF';
 export const colorGradient0 = '#FFFFFF';
 export const colorGradient1 = '#FFFFFF';

@@ -17,19 +17,33 @@ class SurveyContainer extends Component {
         super();
         this.state = {
             page: 1,
-            searchMove: new Animated.Value(-200)
         }
     }
 
     componentWillMount() {
-        this.props.surveyAction.getDataSurvey(this.props.token)
+        this.props.surveyAction.getDataSurvey(1, this.props.token)
     }
 
+    getMoreListHistorySurvey() {
+        const {surveys, surveyAction, token} = this.props;
+        if (surveys.length >= this.state.page * 20) {
+            let page = this.state.page + 1;
+            this.setState({page: page});
+            surveyAction.getMoreDataSurvey(page, token);
+        }
+    }
+
+    loadMore() {
+        if (this.props.isLoadingMoreSurvey)
+            return (<Loading/>)
+        else
+            return (<View/>)
+    }
 
     render() {
         const top = this.state.searchMove;
         const {navigate} = this.props.navigation;
-        const {surveys, isLoading} = this.props;
+        const {surveys, isLoading, isRefreshingSurvey} = this.props;
         return (
             <Container style={general.wrapperContainer}>
                 <View style={[general.wrapperHeader, general.paddingBorder]}>
@@ -40,12 +54,12 @@ class SurveyContainer extends Component {
                         <Image
                             resizeMode={'contain'}
                             source={require('../../../assets/image/logoSurvey.jpg')}
-                            style={[general.imageInHeader, {height: 30, width: 176}]}
+                            style={{height: 30, width: 176}}
                         />
                     </TouchableOpacity>
                     <HamburgerButton navigate={navigate}/>
                 </View>
-                <View style={{flex: 1, alignItems: 'center'}}>
+                <View style={{flex: 1, alignItems: 'center', backgroundColor: '#FFF'}}>
                     {
                         isLoading
                             ?
@@ -55,8 +69,20 @@ class SurveyContainer extends Component {
                                 ref="listRef"
                                 showsVerticalScrollIndicator={false}
                                 data={surveys}
+                                refreshControl={
+                                    <RefreshControl
+                                        refreshing={isRefreshingSurvey}
+                                        onRefresh={
+                                            () => this.props.surveyAction.refreshDataSurvey(this.props.token)
+                                        }
+                                    />
+                                }
+                                ListFooterComponent={
+                                    this.loadMore()
+                                }
                                 renderItem={({item}) =>
                                     <TouchableOpacity
+                                        key={item.id}
                                         onPress={() => navigate('DetailSurvey', {data: item})}
                                         activeOpacity={1}
                                         style={[general.shadow, general.marginBottom, general.wrapperSurvey, general.paddingFar, general.margin, general.marginBottomFar]}>
@@ -96,6 +122,7 @@ class SurveyContainer extends Component {
 function mapStateToProps(state) {
     return {
         isLoading: state.survey.isLoading,
+        isRefreshingSurvey: state.survey.isRefreshingSurvey,
         surveys: state.survey.surveys,
         token: state.login.token,
     }

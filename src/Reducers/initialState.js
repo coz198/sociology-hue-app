@@ -39,6 +39,8 @@ export default {
     },
     survey: {
         isLoading: false,
+        isLoadingMoreSurvey: false,
+        isRefreshingSurvey: false,
         isLoadingQuestion: false,
         isLoadingCloseSurvey: false,
         isLoadingMoreHistorySurvey: false,

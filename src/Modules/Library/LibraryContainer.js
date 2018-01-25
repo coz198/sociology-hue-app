@@ -126,7 +126,7 @@ class LibraryContainer extends Component {
                         <Image
                             resizeMode={'contain'}
                             source={require('../../../assets/image/logoLibrary.png')}
-                            style={[general.imageInHeader, {height: 30, width: 178}]}
+                            style={{height: 30, width: 178}}
                         />
                     </TouchableOpacity>
                     <HamburgerButton navigate={navigate}/>

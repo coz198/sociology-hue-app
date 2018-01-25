@@ -19,7 +19,7 @@ class RuleContainer extends Component {
                         <Image
                             resizeMode={'contain'}
                             source={require('../../../assets/image/logo.png')}
-                            style={[general.imageInHeader, {height: 30, width: 173}]}
+                            style={{height: 30, width: 173}}
                         />
                     </TouchableOpacity>
                     <HamburgerButton navigate={navigate}/>
