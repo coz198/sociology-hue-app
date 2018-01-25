@@ -25,7 +25,7 @@ class DrawerContainer extends Component {
             <Container style={general.wrapperContainer}>
                 <StatusBar
                     barStyle={"dark-content"}
-                    backgroundColor={"#FFF"}
+                    backgroundColor={'#FFF'}
                 />
                 <Content style={general.padding}>
                     <View style={[general.wrapperLogoInDrawer]}>

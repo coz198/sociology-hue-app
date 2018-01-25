@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AsyncStorage, FlatList, Image, RefreshControl, Text, TouchableOpacity, View, Animated, Easing, Keyboard} from 'react-native';
+import {AsyncStorage, FlatList, Image, RefreshControl, Text, TouchableOpacity, View, Platform, Animated, Easing, Keyboard} from 'react-native';
 import {Container, Content, Item, Left, Right, Button, Input} from 'native-base';
 import SearchButton from '../../Commons/SearchButton';
 import Loading from '../../Commons/Loading';
@@ -167,6 +167,7 @@ class HomeContainer extends Component {
                                         style={[general.marginTopBottom, general.paddingLR, {marginBottom: 20}]}>
                                         <View style={[general.shadow,general.imageFeature]}>
                                             <Image
+                                                borderRadius={Platform.OS === 'android' ? 15 : null}
                                                 resizeMode={'cover'}
                                                 source={{uri: 'http://' + item.url}}
                                                 style={[general.imageFeature]}

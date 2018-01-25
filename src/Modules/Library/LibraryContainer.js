@@ -244,7 +244,7 @@ class LibraryContainer extends Component {
                                                     <Image
                                                         resizeMode={'stretch'}
                                                         source={{uri: item.avatar_url}}
-                                                        style={general.imageRectangle}/>
+                                                        style={[general.imageRectangle]}/>
                                                 </View>
                                             </View>
                                             <Text/>

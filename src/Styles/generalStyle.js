@@ -7,7 +7,7 @@ let color = colorLight;
 export const style = {
     wrapperContainer: {
         flex: 1,
-        backgroundColor: color.background,
+        backgroundColor: '#FFF',
     },
     wrapperBackButton: {
         width: 50,
@@ -367,9 +367,8 @@ export const style = {
         marginBottom: 30
     },
     imageFeature: {
-        borderRadius: 15,
         height: hei / 3,
-        backgroundColor: color.background
+        borderRadius: 15,
     },
     imageFeatureInCol: {
         height: hei / 5,
@@ -720,7 +719,9 @@ export const style = {
         shadowColor: color.shadowColor,
         shadowOffset: {width: 0, height: 3},
         shadowOpacity: 0.3,
-    } : {},
+    } : {
+        elevation: 2,
+        },
     itemTabInDrawer: {
         alignItems: 'center',
         flexDirection: 'row',

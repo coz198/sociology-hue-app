@@ -38,7 +38,7 @@ const style = `
 body, html {
     margin: 0;
     padding: 0;
-    font-family: Montserrat !important;
+    font-family: Montserrat-Regular !important;
 }
 #height-wrapper {
     position: absolute;
@@ -47,10 +47,13 @@ body, html {
     right: 0;
 }
 p{
-    font-family: Montserrat !important;
+    font-family: Montserrat-Regular !important;
     font-size: 15px;
     padding-left: 20px;
     padding-right: 20px;
+}
+span{
+    font-family: Montserrat-Regular !important;
 }
 h1, h2, h3, h4, h5, h6{
     padding-left: 20px;
