@@ -134,6 +134,7 @@ class LibraryContainer extends Component {
                 <Animated.View>
                     <Item regular style={[general.marginLR, general.marginBottom, general.wrapperSearch, {top}]}>
                         <Input
+                            returnKeyType={'search'}
                             style={general.textDescriptionCard}
                             onChangeText={(txtSearch) => {
                                 this.searchHaveTimeout(txtSearch);
@@ -235,12 +236,12 @@ class LibraryContainer extends Component {
                                                 </View>
                                             </View>
                                             <View
-                                                style={[general.imageRectangle, {
+                                                style={[general.imageRectangle, general.shadow,{
                                                     position: 'absolute',
                                                     top: 20,
                                                     left: 20
                                                 }]}>
-                                                <View style={[general.imageRectangle, general.shadow]}>
+                                                <View style={[general.imageRectangle, ]}>
                                                     <Image
                                                         resizeMode={'stretch'}
                                                         source={{uri: item.avatar_url}}

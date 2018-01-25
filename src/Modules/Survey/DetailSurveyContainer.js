@@ -84,7 +84,7 @@ class DetailSurveyContainer extends Component {
                         <Text style={[general.textTitleBig, general.marginBottom]}>NGƯỜI THỰC HIỆN KHẢO SÁT</Text>
                         <View style={general.wrapperRowCenter}>
                             <Image style={general.imageCircleTiny}
-                                   source={{uri: 'http://' + data.staff.avatar_url}}
+                                   source={{uri: data.staff.avatar_url}}
                             />
                             <Text style={[general.textNameCard, general.paddingLine]}>&nbsp;&nbsp;{data.staff.name.toUpperCase()}
                             <Text style={general.textTimeCard}>&nbsp;-&nbsp;

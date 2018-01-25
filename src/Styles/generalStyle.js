@@ -111,7 +111,7 @@ export const style = {
         alignItems: 'center',
     },
     imageInDrawer: {
-        width: wid * 3 / 4 - 80,
+        width: hei/wid > 1.6 ? (0.75*wid) / 1.5  : (0.75*wid) / 2,
         height: hei / 3,
     },
     wrapperButtonPlay: {
@@ -386,7 +386,7 @@ export const style = {
         backgroundColor: color.mainColor
     },
     imageLogin: {
-        width: 3 * wid / 4 - 90,
+        width: hei/wid > 1.6 ? wid / 1.5  : wid / 2,
         height: hei / 3,
     },
     imageFullWidth: {
@@ -821,6 +821,11 @@ export const style = {
     },
     wrapperSpace: {
         height: 20,
+    },
+    wrapperBackButtonAbsolute: {
+        position: 'absolute',
+        top: Platform.OS === 'ios' ? 20 : 0,
+        left:5
     },
     inputTheme: {
         fontSize: size.titleNormal,

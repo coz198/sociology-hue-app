@@ -118,6 +118,7 @@ class HomeContainer extends Component {
                     <Item regular style={[general.marginLR, general.marginBottom, general.wrapperSearch,{top}]}>
                         <Input
                             style={general.textDescriptionCard}
+                            returnKeyType={'search'}
                             onChangeText={(txtSearch) => {
                                 this.searchHaveTimeout(txtSearch);
                             }}

@@ -3,12 +3,13 @@ import {Platform, StatusBar, Image, Switch, Text, TouchableOpacity, View} from '
 import {Container, Content} from 'native-base';
 import general from '../../Styles/generalStyle';
 import {connect} from 'react-redux';
-import  * as logoutAction from '../Login/logoutAction';
+import * as logoutAction from '../Login/logoutAction';
 import {bindActionCreators} from 'redux'
 import {NavigationActions} from "react-navigation";
+
 class DrawerContainer extends Component {
-    logout(){
-        if(this.props.loginStatus == true){
+    logout() {
+        if (this.props.loginStatus == true) {
             this.props.logoutAction.logout();
         }
         const resetAction = NavigationActions.reset({
@@ -19,6 +20,7 @@ class DrawerContainer extends Component {
         })
         this.props.navigation.dispatch(resetAction)
     }
+
     render() {
         const {navigate} = this.props.navigation;
         return (
@@ -37,17 +39,17 @@ class DrawerContainer extends Component {
                     <TouchableOpacity
                         onPress={() => navigate('Home')}
                     >
-                            <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Trang chủ</Text>
+                        <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Trang chủ</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => navigate('Library')}
                     >
-                            <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Thư viện</Text>
+                        <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Thư viện</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => navigate('Rule')}
                     >
-                            <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Điều khoản</Text>
+                        <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Điều khoản</Text>
                     </TouchableOpacity>
                     {
                         this.props.loginStatus == true
@@ -56,13 +58,26 @@ class DrawerContainer extends Component {
                                 <TouchableOpacity
                                     onPress={() => navigate('Survey')}
                                 >
-                                    <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Khảo sát</Text>
+                                    <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Khảo
+                                        sát</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity
-                                    onPress={() => navigate('HistorySurvey')}
-                                >
-                                    <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Lịch sử khảo sát</Text>
-                                </TouchableOpacity>
+                                {
+                                    this.props.user
+                                        ?
+                                        this.props.user.role > 0
+                                            ?
+                                            <TouchableOpacity
+                                                onPress={() => navigate('HistorySurvey')}
+                                            >
+                                                <Text
+                                                    style={[general.textTitleCard, general.padding, general.paddingLR]}>Lịch
+                                                    sử khảo sát</Text>
+                                            </TouchableOpacity>
+                                            :
+                                            <View/>
+                                        :
+                                        <View/>
+                                }
                             </View>
 
                             :
@@ -71,7 +86,8 @@ class DrawerContainer extends Component {
                     <TouchableOpacity
                         onPress={() => this.logout()}
                     >
-                            <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>{this.props.loginStatus == true ? 'Đăng xuất' : 'Đăng nhập'}</Text>
+                        <Text
+                            style={[general.textTitleCard, general.padding, general.paddingLR]}>{this.props.loginStatus == true ? 'Đăng xuất' : 'Đăng nhập'}</Text>
                     </TouchableOpacity>
                     <View style={general.wrapperBottomModule}/>
                 </Content>
@@ -79,15 +95,19 @@ class DrawerContainer extends Component {
         );
     }
 }
+
 function mapStateToProps(state) {
     return {
         token: state.login.token,
-        loginStatus: state.login.loginStatus
+        loginStatus: state.login.loginStatus,
+        user: state.login.user
     }
 }
+
 function mapDispatchToProps(dispatch) {
     return {
-        logoutAction : bindActionCreators(logoutAction, dispatch)
+        logoutAction: bindActionCreators(logoutAction, dispatch)
     }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(DrawerContainer)

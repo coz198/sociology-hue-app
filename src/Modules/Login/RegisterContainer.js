@@ -14,6 +14,7 @@ import * as size from '../../Styles/size';
 import BackButton from '../../Commons/BackButton';
 import {CheckBox, Container, Content, Form, Header, Input, Item, Left} from 'native-base';
 import * as registerAction from './registerAction';
+import * as loginAction from './loginActions';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux'
 import general from '../../Styles/generalStyle';
@@ -44,10 +45,17 @@ class RegisterContainer extends Component {
         }
     }
 
+    saveData() {
+        this.props.loginAction.setDataLogin(this.props.login)
+    }
+
     componentWillReceiveProps(nextProps) {
         const {navigate} = this.props.navigation;
-        if(this.props.status != nextProps.status)
-            navigate('Login')
+        if(this.props.status != nextProps.status){
+            let login = {"email" : this.state.email, "password" : this.state.password}
+            this.props.loginAction.loginUser(login);
+            this.saveData();
+        }
     }
 
     render() {
@@ -55,16 +63,11 @@ class RegisterContainer extends Component {
         const {goBack} = this.props.navigation;
         return (
             <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-                keyboardVerticalOffset={Platform.OS === 'ios' ? undefined : 200}
+                // behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+                keyboardVerticalOffset={Platform.OS === 'ios' ? undefined : 0}
                 style={general.wrapperContainer}
             >
-                <StatusBar
-                    backgroundColor={color.background}
-                />
-                <View style={{marginTop: 20}}>
-                    <BackButton goBack={goBack}/>
-                </View>
+
                 <View style={[general.wrapperLogin, {padding: 20}]}>
                     <Image
                         resizeMode={'contain'}
@@ -87,7 +90,7 @@ class RegisterContainer extends Component {
                             />
                         </Item>
                     </View>
-                    <View style={general.marginTopFar}>
+                    <View style={general.marginTop}>
                         <Item style={general.itemInput}>
                             <Input
                                 style={general.inputTheme02}
@@ -103,7 +106,7 @@ class RegisterContainer extends Component {
                             />
                         </Item>
                     </View>
-                    <View style={general.marginTopFar}>
+                    <View style={general.marginTop}>
 
                         <Item style={general.itemInput}>
                             <Input
@@ -120,14 +123,14 @@ class RegisterContainer extends Component {
                             />
                         </Item>
                     </View>
-                    <View style={general.marginTopFar}>
+                    <View style={general.marginTop}>
                         <Item style={general.itemInput}>
                             <Input
                                 style={general.inputTheme02}
                                 underlineColorAndroid={color.none}
                                 placeholder="Username"
                                 keyboardType={'email-address'}
-                                returnKeyType={'next'}
+                                returnKeyType={'done'}
                                 autoCorrect={false}
                                 onChangeText={(username) => {
                                     this.setState({username})
@@ -136,7 +139,7 @@ class RegisterContainer extends Component {
                             />
                         </Item>
                     </View>
-                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                    <View style={general.wrapperCenter}>
                         <View style={general.wrapperLoginButton}>
                             <TouchableOpacity
                                 style={general.buttonBuyNowFullSize}
@@ -162,12 +165,14 @@ class RegisterContainer extends Component {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={{justifyContent: 'center', alignItems: 'center', bottom: -size.hei / 6 + 20}}>
-                        <Text style={[general.textLogin,]}>FORGOT PASSWORD</Text>
-                    </View>
+                    {/*<View style={{justifyContent: 'center', alignItems: 'center', bottom: -size.hei / 6 + 20}}>*/}
+                        {/*<Text style={[general.textLogin,]}>FORGOT PASSWORD</Text>*/}
+                    {/*</View>*/}
                 </View>
 
-
+                <View style={general.wrapperBackButtonAbsolute}>
+                    <BackButton goBack={goBack}/>
+                </View>
             </KeyboardAvoidingView>
         )
     }
@@ -184,7 +189,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        registerAction: bindActionCreators(registerAction, dispatch)
+        registerAction: bindActionCreators(registerAction, dispatch),
+        loginAction: bindActionCreators(loginAction, dispatch),
     }
 }
 

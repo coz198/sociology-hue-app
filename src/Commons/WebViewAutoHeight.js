@@ -35,30 +35,25 @@ const style = `
     font-weight: normal;
     font-style: normal;
 }
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: Montserrat-Regular !important;
-}
 #height-wrapper {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
 }
+a ,p, li, h1, h2, h3, h4, h5, h6, table {
+    padding-left: 20px;
+    padding-right: 20px;
+}
 p{
     font-family: Montserrat-Regular !important;
     font-size: 15px;
-    padding-left: 20px;
-    padding-right: 20px;
 }
 span{
     font-family: Montserrat-Regular !important;
 }
 h1, h2, h3, h4, h5, h6{
-    padding-left: 20px;
-    padding-right: 20px;
-    font-weight: 500;
+    font-weight: 400;
     font-family: Montserrat !important;
 }
 h1, h2 {
@@ -73,13 +68,9 @@ h5, h6 {
 ul li:{
     font-family: Montserrat !important;
     font-size: 15px;
-    padding-left: 20px;
-    padding-right: 20px;
 }
 ol li:{
     font-family: Montserrat !important;
-    padding-left: 20px;
-    padding-right: 20px;
 }
 
 table, th, td{

@@ -43,7 +43,7 @@ class SurveyContainer extends Component {
     render() {
         const top = this.state.searchMove;
         const {navigate} = this.props.navigation;
-        const {surveys, isLoading, isRefreshingSurvey} = this.props;
+        const {surveys, isLoading, isRefreshingSurvey, user} = this.props;
         return (
             <Container style={general.wrapperContainer}>
                 <View style={[general.wrapperHeader, general.paddingBorder]}>
@@ -61,61 +61,75 @@ class SurveyContainer extends Component {
                 </View>
                 <View style={{flex: 1, alignItems: 'center', backgroundColor: '#FFF'}}>
                     {
-                        isLoading
+                        user.role == 0
                             ?
-                            <Loading/>
+                            <Text style={[general.textTitleCard, {textAlign: 'center'}]}>Hiện tại bạn chưa thể truy cập
+                                được vào Survey.</Text>
                             :
-                            <FlatList
-                                ref="listRef"
-                                showsVerticalScrollIndicator={false}
-                                data={surveys}
-                                refreshControl={
-                                    <RefreshControl
-                                        refreshing={isRefreshingSurvey}
-                                        onRefresh={
-                                            () => this.props.surveyAction.refreshDataSurvey(this.props.token)
-                                        }
-                                    />
-                                }
-                                onEndReachedThreshold={5}
-                                onEndReached={
-                                    () => this.getMoreLisSurvey()
-                                }
-                                ListFooterComponent={
-                                    this.loadMore()
-                                }
-                                renderItem={({item}) =>
-                                    <TouchableOpacity
-                                        key={item.id}
-                                        onPress={() => navigate('DetailSurvey', {data: item})}
-                                        activeOpacity={1}
-                                        style={[general.shadow, general.marginBottom, general.wrapperSurvey, general.paddingFar, general.margin, general.marginBottomFar]}>
-                                        <Text style={general.textTitleCard}>{item.name.toUpperCase()}</Text>
-                                        <View style={general.wrapperRowCenter}>
-                                            <Image style={general.imageCircleTiny}
-                                                   source={{uri: item.staff ? 'http://' + item.staff.avatar_url : ''}}
-                                            />
+                            isLoading
+                                ?
+                                <Loading/>
+                                :
+
+                                <FlatList
+                                    ref="listRef"
+                                    showsVerticalScrollIndicator={false}
+                                    data={surveys}
+                                    refreshControl={
+                                        <RefreshControl
+                                            refreshing={isRefreshingSurvey}
+                                            onRefresh={
+                                                () => this.props.surveyAction.refreshDataSurvey(this.props.token)
+                                            }
+                                        />
+                                    }
+                                    onEndReachedThreshold={5}
+                                    onEndReached={
+                                        () => this.getMoreLisSurvey()
+                                    }
+                                    ListFooterComponent={
+                                        this.loadMore()
+                                    }
+                                    renderItem={({item}) =>
+                                        <TouchableOpacity
+                                            key={item.id}
+                                            onPress={() => navigate('DetailSurvey', {data: item})}
+                                            activeOpacity={1}
+                                            style={[general.shadow, general.marginBottom, general.wrapperSurvey, general.paddingFar, general.margin, general.marginBottomFar]}>
+                                            <Image
+                                                style={[general.imageFeature]}
+                                                source={{uri: item.image_url}}/>
+                                            <View style={general.wrapperSpace}/>
+                                            <Text style={general.textTitleCard}>{item.name.toUpperCase()}</Text>
+                                            <View style={general.wrapperRowCenter}>
+                                                <Image style={general.imageCircleTiny}
+                                                       source={{uri: item.staff ? item.staff.avatar_url : ''}}
+                                                />
+                                                <Text
+                                                    style={[general.textNameCard, general.paddingLine]}>&nbsp;&nbsp;{item.staff ? item.staff.name.toUpperCase() : ''}<Text
+                                                    style={general.textTimeCard}>&nbsp;-&nbsp;{item.created_at}</Text></Text>
+                                            </View>
                                             <Text
-                                                style={[general.textNameCard, general.paddingLine]}>&nbsp;&nbsp;{item.staff ? item.staff.name.toUpperCase() : ''}<Text
-                                                style={general.textTimeCard}>&nbsp;-&nbsp;{item.created_at}</Text></Text>
-                                        </View>
-                                        <Text
-                                            style={[general.textDescriptionCard, general.marginBottom]}>{item.description}</Text>
-                                        <View style={[general.wrapperProcessDark, general.marginTop]}>
-                                            <View
-                                                style={[general.process, {width: item.target > item.take ? (size.wid - 80) / item.target * item.take : (size.wid - 80)}]}/>
-                                        </View>
-                                        <View style={general.wrapperSpace}/>
-                                        <Text style={[general.categoryInImage, general.textDescriptionCardLight]}>
-                                            {item.questions_count} câu hỏi
-                                        </Text>
-                                        <Text style={[general.textTimeCard, {position: 'absolute', bottom: 10, left: 20,}]}>
-                                            {item.take} / {item.target}
-                                        </Text>
-                                        <View style={general.wrapperSpace}/>
-                                    </TouchableOpacity>
-                                }
-                            />
+                                                style={[general.textDescriptionCard, general.marginBottom]}>{item.description}</Text>
+                                            <View style={[general.wrapperProcessDark, general.marginTop]}>
+                                                <View
+                                                    style={[general.process, {width: item.target > item.take ? (size.wid - 80) / item.target * item.take : (size.wid - 80)}]}/>
+                                            </View>
+                                            <View style={general.wrapperSpace}/>
+                                            <Text style={[general.categoryInImage, general.textDescriptionCardLight]}>
+                                                {item.questions_count} câu hỏi
+                                            </Text>
+                                            <Text style={[general.textTimeCard, {
+                                                position: 'absolute',
+                                                bottom: 10,
+                                                left: 20,
+                                            }]}>
+                                                {item.take} / {item.target}
+                                            </Text>
+                                            <View style={general.wrapperSpace}/>
+                                        </TouchableOpacity>
+                                    }
+                                />
                     }
                 </View>
             </Container>
@@ -129,6 +143,7 @@ function mapStateToProps(state) {
         isRefreshingSurvey: state.survey.isRefreshingSurvey,
         surveys: state.survey.surveys,
         token: state.login.token,
+        user: state.login.user
     }
 }
 

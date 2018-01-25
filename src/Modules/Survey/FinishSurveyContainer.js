@@ -58,7 +58,7 @@ class FinishSurveyContainer extends Component {
                                     </Text>
                                     <View style={general.wrapperRowCenter}>
                                         <Image style={general.imageCircleTiny}
-                                               source={{uri: 'http://' + staff.avatar_url}}
+                                               source={{uri: staff.avatar_url}}
                                         />
                                         <Text
                                             style={[general.textNameCard, general.paddingLine]}>&nbsp;&nbsp;{staff.name.toUpperCase()}

@@ -2,7 +2,7 @@ import * as env from '../../Constants/env';
 import axios from 'axios';
 
 export function surveyApi(page, token) {
-    let url = env.API_SOCIOLOGY_MANAGE + '/v2/survey?page=' + page + '&token=' + token;
+    let url = env.API_SOCIOLOGY_MANAGE + '/v2/app/survey?page=' + page + '&token=' + token;
     return axios.get(url);
 }
 

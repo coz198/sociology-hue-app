@@ -51,7 +51,7 @@ class LoginContainer extends Component {
         this.props.loginAction.updateDataLogin(login);
     }
 
-    skipLogin(){
+    skipLogin() {
         this.props.loginAction.skipLogin();
         this.props.navigation.navigate('DrawerMain');
     }
@@ -71,9 +71,10 @@ class LoginContainer extends Component {
     render() {
         const {navigate} = this.props.navigation;
         return (
-            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-                                  keyboardVerticalOffset={Platform.OS === 'ios' ? undefined : 200}
-                                  style={general.wrapperContainer}>
+            <KeyboardAvoidingView
+                // behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+                keyboardVerticalOffset={Platform.OS === 'ios' ? undefined : 0}
+                style={general.wrapperContainer}>
                 <StatusBar
                     barStyle="dark-content"
                     backgroundColor={color.background}
@@ -114,7 +115,6 @@ class LoginContainer extends Component {
                             />
                         </Item>
                     </View>
-                    <View style={general.wrapperCenter}>
                         <View style={general.wrapperLoginButton}>
                             <TouchableOpacity
                                 style={general.buttonBuyNowFullSize}
@@ -137,20 +137,20 @@ class LoginContainer extends Component {
                                 }
                             </TouchableOpacity>
                         </View>
-                        <View style={{marginTop: 20, marginBottom: 20}}>
-                            <Text style={general.textLogin}
-                                  onPress={() => navigate('Register')}>ĐĂNG KÝ TÀI KHOẢN</Text>
-                        </View>
 
+                    <View style={{marginTop: 10, marginBottom: 10}}>
+                        <Text style={general.textLogin}
+                              onPress={() => navigate('Register')}>ĐĂNG KÝ TÀI KHOẢN</Text>
                     </View>
-
                     <TouchableOpacity
                         actionOpacity={1}
-                        style={{position: 'absolute', top: size.hei * 4.7/5}}
+                        style={{marginTop: 30}}
                         onPress={() => this.skipLogin()}
                     >
                         <Text style={[general.textLogin]}>BỎ QUA ĐĂNG NHẬP</Text>
                     </TouchableOpacity>
+
+
                 </View>
             </KeyboardAvoidingView>
         )

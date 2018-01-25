@@ -20,12 +20,10 @@ class HistorySurveyContainer extends Component {
             historySurveyState:[]
         }
     }
-
     componentWillMount() {
         const {token} = this.props;
         this.props.surveyAction.getHistorySurvey(1, token);
     }
-
     getMoreListHistorySurvey() {
         const {historySurvey, surveyAction, token} = this.props;
         if (historySurvey.length >= this.state.page * 20) {
@@ -33,8 +31,9 @@ class HistorySurveyContainer extends Component {
             this.setState({page: page});
             surveyAction.getMoreHistorySurvey(page, token);
         }
-    }
+        console.log('rerrerere')
 
+    }
     componentWillReceiveProps(nextProps) {
         const newArr = this.props.historySurvey.map((item, i)=>{
             return{
@@ -43,16 +42,13 @@ class HistorySurveyContainer extends Component {
             }
         })
         this.setState({historySurveyState: newArr})
-        console.log('rerrerere')
     }
-
     loadMore() {
         if (this.props.isLoadingMoreHistorySurvey)
             return (<Loading/>)
         else
             return (<View/>)
     }
-
     render() {
         const {navigate} = this.props.navigation;
         const {user, isLoadingHistorySurvey, historySurvey, isRefreshingHistorySurvey} = this.props;
