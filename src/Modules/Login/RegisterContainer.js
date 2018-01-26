@@ -142,6 +142,7 @@ class RegisterContainer extends Component {
                     <View style={general.wrapperCenter}>
                         <View style={general.wrapperLoginButton}>
                             <TouchableOpacity
+                                activeOpacity={1}
                                 style={general.buttonBuyNowFullSize}
                                 onPress={() => {
                                     this.register(this.state)

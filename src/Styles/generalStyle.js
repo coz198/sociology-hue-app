@@ -40,7 +40,7 @@ export const style = {
     },
 
     wrapperLogin: {
-        flex: 1,
+        flex: 12,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: color.background,
@@ -274,8 +274,8 @@ export const style = {
         backgroundColor: color.none,
     },
     textNameCard: {
-        color: color.textColor,
-        fontFamily: 'Montserrat-Regular',
+        color: color.gray,
+        fontFamily: 'Montserrat-Bold',
         fontSize: size.titleNormal,
         backgroundColor: color.none,
     },

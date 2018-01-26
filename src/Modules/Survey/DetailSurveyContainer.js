@@ -24,23 +24,26 @@ class DetailSurveyContainer extends Component {
             today: '',
         }
     }
-    componentWillMount(){
+
+    componentWillMount() {
         this.getToday();
     }
-    getToday(){
+
+    getToday() {
         let today = new Date();
         let dd = today.getDate();
-        let mm = today.getMonth()+1; //January is 0!
+        let mm = today.getMonth() + 1; //January is 0!
         let yyyy = today.getFullYear();
-        if(dd<10) {
-            dd = '0'+dd
+        if (dd < 10) {
+            dd = '0' + dd
         }
-        if(mm<10) {
-            mm = '0'+mm
+        if (mm < 10) {
+            mm = '0' + mm
         }
         today = mm + '/' + dd + '/' + yyyy;
-        return(this.setState({today: today}));
+        return (this.setState({today: today}));
     }
+
     render() {
         const top = this.state.searchMove;
         const {navigate} = this.props.navigation;
@@ -70,9 +73,6 @@ class DetailSurveyContainer extends Component {
                         <Image style={general.imageCircleTiny}
                                source={{uri: data.user ? data.user.avatar_url : ''}}
                         />
-                        <Text
-                            style={[general.textNameCard, general.paddingLine]}>&nbsp;&nbsp;{data.user ? data.user.name.toUpperCase() : ''}<Text
-                            style={general.textTimeCard}>&nbsp;-&nbsp;{data.created_at}</Text></Text>
                     </View>
                     <View style={general.wrapperSpace}/>
                     <Image
@@ -86,10 +86,11 @@ class DetailSurveyContainer extends Component {
                             <Image style={general.imageCircleTiny}
                                    source={{uri: data.staff.avatar_url}}
                             />
-                            <Text style={[general.textNameCard, general.paddingLine]}>&nbsp;&nbsp;{data.staff.name.toUpperCase()}
-                            <Text style={general.textTimeCard}>&nbsp;-&nbsp;
-                                {this.state.today}
-                            </Text>
+                            <Text
+                                style={[general.textNameCard, general.paddingLine]}>&nbsp;&nbsp;{data.staff.name.toUpperCase()}
+                                <Text style={general.textTimeCard}>&nbsp;-&nbsp;
+                                    {this.state.today}
+                                </Text>
                             </Text>
                         </View>
                     </View>

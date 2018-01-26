@@ -72,9 +72,8 @@ class LoginContainer extends Component {
         const {navigate} = this.props.navigation;
         return (
             <KeyboardAvoidingView
-                // behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                 keyboardVerticalOffset={Platform.OS === 'ios' ? undefined : 0}
-                style={general.wrapperContainer}>
+                style={[general.wrapperContainer]}>
                 <StatusBar
                     barStyle="dark-content"
                     backgroundColor={color.background}
@@ -99,7 +98,7 @@ class LoginContainer extends Component {
                             value={this.props.login.email}
                         />
                     </Item>
-                    <View style={{marginTop: 30}}>
+                    <View style={{marginTop: 20}}>
                         <Item style={general.itemInput}>
                             <Input
                                 style={general.inputTheme02}
@@ -117,6 +116,7 @@ class LoginContainer extends Component {
                     </View>
                         <View style={general.wrapperLoginButton}>
                             <TouchableOpacity
+                                activeOpacity={1}
                                 style={general.buttonBuyNowFullSize}
                                 onPress={() => {
                                     this.signIn()
@@ -142,16 +142,14 @@ class LoginContainer extends Component {
                         <Text style={general.textLogin}
                               onPress={() => navigate('Register')}>ĐĂNG KÝ TÀI KHOẢN</Text>
                     </View>
-                    <TouchableOpacity
-                        actionOpacity={1}
-                        style={{marginTop: 30}}
-                        onPress={() => this.skipLogin()}
-                    >
-                        <Text style={[general.textLogin]}>BỎ QUA ĐĂNG NHẬP</Text>
-                    </TouchableOpacity>
-
-
                 </View>
+                <TouchableOpacity
+                    style={[{flex: 1}, general.wrapperCenter]}
+                    actionOpacity={1}
+                    onPress={() => this.skipLogin()}
+                >
+                    <Text style={[general.textLogin]}>BỎ QUA ĐĂNG NHẬP</Text>
+                </TouchableOpacity>
             </KeyboardAvoidingView>
         )
     }

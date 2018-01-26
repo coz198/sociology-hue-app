@@ -95,10 +95,12 @@ class SurveyContainer extends Component {
                                             key={item.id}
                                             onPress={() => navigate('DetailSurvey', {data: item})}
                                             activeOpacity={1}
-                                            style={[general.shadow, general.marginBottom, general.wrapperSurvey, general.paddingFar, general.margin, general.marginBottomFar]}>
-                                            <Image
-                                                style={[general.imageFeature]}
-                                                source={{uri: item.image_url}}/>
+                                            style={[general.marginBottom, general.paddingLR, general.marginBottomFar]}>
+                                            <View style={[general.shadow, general.imageFeature]}>
+                                                <Image
+                                                    style={[general.imageFeature]}
+                                                    source={{uri: item.image_url}}/>
+                                            </View>
                                             <View style={general.wrapperSpace}/>
                                             <Text style={general.textTitleCard}>{item.name.toUpperCase()}</Text>
                                             <View style={general.wrapperRowCenter}>
@@ -115,8 +117,8 @@ class SurveyContainer extends Component {
                                                 <View
                                                     style={[general.process, {width: item.target > item.take ? (size.wid - 80) / item.target * item.take : (size.wid - 80)}]}/>
                                             </View>
-                                            <View style={general.wrapperSpace}/>
-                                            <Text style={[general.categoryInImage, general.textDescriptionCardLight]}>
+                                            <View style={[general.wrapperSpace, general.marginBottom]}/>
+                                            <Text style={[general.categoryInImage, general.textDescriptionCardLight,{right: 20}]}>
                                                 {item.questions_count} câu hỏi
                                             </Text>
                                             <Text style={[general.textTimeCard, {
