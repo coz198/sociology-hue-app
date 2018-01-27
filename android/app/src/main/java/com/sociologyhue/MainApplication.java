@@ -1,7 +1,7 @@
 package com.keetool.app.sociologyhue;
 
 import android.app.Application;
-
+import com.microsoft.codepush.react.CodePush;
 import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -16,6 +16,12 @@ import java.util.List;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+
+        @Override
+        protected String getJSBundleFile() {
+        return CodePush.getJSBundleFile();
+        }
+    
     @Override
     public boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
@@ -26,7 +32,8 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new VectorIconsPackage(),
-            new LinearGradientPackage()
+            new LinearGradientPackage(),
+            new CodePush("LvHkgIJipf5FKwvcBQq9PA0ov2-J24126e59-1d4e-4bd3-aa9b-8afeaebcf1f4", MainApplication.this, BuildConfig.DEBUG)
       );
     }
 

@@ -1,3 +1,9 @@
 <resources>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">LvHkgIJipf5FKwvcBQq9PA0ov2-J24126e59-1d4e-4bd3-aa9b-8afeaebcf1f4</string>
+    <string moduleConfig="true" name="appcenterCrashes_whenToSendCrashes">ALWAYS_SEND</string>
+    <string moduleConfig="true" name="appcenterAnalytics_whenToEnableAnalytics">ALWAYS_SEND</string>
     <string name="app_name">Sociology Hue</string>
+    <string name="CodePushPublicKey">-----BEGIN PUBLIC KEY-----
+        LvHkgIJipf5FKwvcBQq9PA0ov2-J24126e59-1d4e-4bd3-aa9b-8afeaebcf1f4
+        -----END PUBLIC KEY-----</string>
 </resources>
