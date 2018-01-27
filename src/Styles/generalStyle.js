@@ -40,7 +40,7 @@ export const style = {
     },
 
     wrapperLogin: {
-        flex: 12,
+        height: 9/10 * hei,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: color.background,

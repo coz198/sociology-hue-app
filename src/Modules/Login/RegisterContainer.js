@@ -62,119 +62,121 @@ class RegisterContainer extends Component {
         const {navigate} = this.props.navigation;
         const {goBack} = this.props.navigation;
         return (
-            <KeyboardAvoidingView
-                // behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-                keyboardVerticalOffset={Platform.OS === 'ios' ? undefined : 0}
-                style={general.wrapperContainer}
-            >
+            <View style={{flex: 1}}>
+                <KeyboardAvoidingView
+                    behavior={Platform.OS === 'android' ? 'position' : null}
+                    keyboardVerticalOffset={Platform.OS === 'ios' ? undefined : 0}
+                    style={general.wrapperContainer}
+                >
 
-                <View style={[general.wrapperLogin, {padding: 20}]}>
-                    <Image
-                        resizeMode={'contain'}
-                        source={require('../../../assets/image/logo.png')}
-                        style={[general.imageLogin, general.marginLR]}
-                    />
-                    <View>
-                        <Item style={general.itemInput}>
-                            <Input
-                                style={general.inputTheme02}
-                                underlineColorAndroid={color.none}
-                                placeholder="Email"
-                                keyboardType={'email-address'}
-                                returnKeyType={'next'}
-                                autoCorrect={false}
-                                onChangeText={(email) => {
-                                    this.setState({email})
-                                }}
-                                value={this.state.email}
-                            />
-                        </Item>
-                    </View>
-                    <View style={general.marginTop}>
-                        <Item style={general.itemInput}>
-                            <Input
-                                style={general.inputTheme02}
-                                underlineColorAndroid={color.none}
-                                placeholder="Password"
-                                returnKeyType={'next'}
-                                autoCorrect={false}
-                                secureTextEntry={true}
-                                onChangeText={(password) => {
-                                    this.setState({password})
-                                }}
-                                value={this.state.password}
-                            />
-                        </Item>
-                    </View>
-                    <View style={general.marginTop}>
-
-                        <Item style={general.itemInput}>
-                            <Input
-                                style={general.inputTheme02}
-                                underlineColorAndroid={color.none}
-                                placeholder="Name"
-                                keyboardType={'email-address'}
-                                returnKeyType={'next'}
-                                autoCorrect={false}
-                                onChangeText={(name) => {
-                                    this.setState({name})
-                                }}
-                                value={this.state.name}
-                            />
-                        </Item>
-                    </View>
-                    <View style={general.marginTop}>
-                        <Item style={general.itemInput}>
-                            <Input
-                                style={general.inputTheme02}
-                                underlineColorAndroid={color.none}
-                                placeholder="Username"
-                                keyboardType={'email-address'}
-                                returnKeyType={'done'}
-                                autoCorrect={false}
-                                onChangeText={(username) => {
-                                    this.setState({username})
-                                }}
-                                value={this.state.username}
-                            />
-                        </Item>
-                    </View>
-                    <View style={general.wrapperCenter}>
-                        <View style={general.wrapperLoginButton}>
-                            <TouchableOpacity
-                                activeOpacity={1}
-                                style={general.buttonBuyNowFullSize}
-                                onPress={() => {
-                                    this.register(this.state)
-                                }}
-                            >
-                                {(this.props.isLoading) ? (
-
-                                    <ActivityIndicator
-                                        animated={true}
-                                        color={color.navTitle}
-                                        style={{
-                                            height: 20,
-                                        }}
-                                        size='small'
-                                    />
-
-                                ) : (
-                                    <Text style={[general.paddingRight, general.textBigLight]}>REGISTER</Text>
-                                )
-                                }
-                            </TouchableOpacity>
+                    <View style={[general.wrapperLogin, {padding: 20}]}>
+                        <Image
+                            resizeMode={'contain'}
+                            source={require('../../../assets/image/logo.png')}
+                            style={[general.imageLogin, general.marginLR]}
+                        />
+                        <View>
+                            <Item style={general.itemInput}>
+                                <Input
+                                    style={general.inputTheme02}
+                                    underlineColorAndroid={color.none}
+                                    placeholder="Email"
+                                    keyboardType={'email-address'}
+                                    returnKeyType={'next'}
+                                    autoCorrect={false}
+                                    onChangeText={(email) => {
+                                        this.setState({email})
+                                    }}
+                                    value={this.state.email}
+                                />
+                            </Item>
                         </View>
-                    </View>
-                    {/*<View style={{justifyContent: 'center', alignItems: 'center', bottom: -size.hei / 6 + 20}}>*/}
-                        {/*<Text style={[general.textLogin,]}>FORGOT PASSWORD</Text>*/}
-                    {/*</View>*/}
-                </View>
+                        <View style={general.marginTop}>
+                            <Item style={general.itemInput}>
+                                <Input
+                                    style={general.inputTheme02}
+                                    underlineColorAndroid={color.none}
+                                    placeholder="Password"
+                                    returnKeyType={'next'}
+                                    autoCorrect={false}
+                                    secureTextEntry={true}
+                                    onChangeText={(password) => {
+                                        this.setState({password})
+                                    }}
+                                    value={this.state.password}
+                                />
+                            </Item>
+                        </View>
+                        <View style={general.marginTop}>
 
+                            <Item style={general.itemInput}>
+                                <Input
+                                    style={general.inputTheme02}
+                                    underlineColorAndroid={color.none}
+                                    placeholder="Name"
+                                    keyboardType={'email-address'}
+                                    returnKeyType={'next'}
+                                    autoCorrect={false}
+                                    onChangeText={(name) => {
+                                        this.setState({name})
+                                    }}
+                                    value={this.state.name}
+                                />
+                            </Item>
+                        </View>
+                        <View style={general.marginTop}>
+                            <Item style={general.itemInput}>
+                                <Input
+                                    style={general.inputTheme02}
+                                    underlineColorAndroid={color.none}
+                                    placeholder="Username"
+                                    keyboardType={'email-address'}
+                                    returnKeyType={'done'}
+                                    autoCorrect={false}
+                                    onChangeText={(username) => {
+                                        this.setState({username})
+                                    }}
+                                    value={this.state.username}
+                                />
+                            </Item>
+                        </View>
+                        <View style={general.wrapperCenter}>
+                            <View style={general.wrapperLoginButton}>
+                                <TouchableOpacity
+                                    activeOpacity={1}
+                                    style={general.buttonBuyNowFullSize}
+                                    onPress={() => {
+                                        this.register(this.state)
+                                    }}
+                                >
+                                    {(this.props.isLoading) ? (
+
+                                        <ActivityIndicator
+                                            animated={true}
+                                            color={color.navTitle}
+                                            style={{
+                                                height: 20,
+                                            }}
+                                            size='small'
+                                        />
+
+                                    ) : (
+                                        <Text style={[general.paddingRight, general.textBigLight]}>REGISTER</Text>
+                                    )
+                                    }
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                        {/*<View style={{justifyContent: 'center', alignItems: 'center', bottom: -size.hei / 6 + 20}}>*/}
+                        {/*<Text style={[general.textLogin,]}>FORGOT PASSWORD</Text>*/}
+                        {/*</View>*/}
+                    </View>
+                </KeyboardAvoidingView>
                 <View style={general.wrapperBackButtonAbsolute}>
                     <BackButton goBack={goBack}/>
                 </View>
-            </KeyboardAvoidingView>
+            </View>
+
         )
     }
 

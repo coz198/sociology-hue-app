@@ -72,6 +72,7 @@ class LoginContainer extends Component {
         const {navigate} = this.props.navigation;
         return (
             <KeyboardAvoidingView
+                behavior={Platform.OS === 'android' ? 'position' : null}
                 keyboardVerticalOffset={Platform.OS === 'ios' ? undefined : 0}
                 style={[general.wrapperContainer]}>
                 <StatusBar
@@ -144,7 +145,7 @@ class LoginContainer extends Component {
                     </View>
                 </View>
                 <TouchableOpacity
-                    style={[{flex: 1}, general.wrapperCenter]}
+                    style={[ general.wrapperCenter]}
                     actionOpacity={1}
                     onPress={() => this.skipLogin()}
                 >
