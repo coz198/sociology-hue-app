@@ -40,7 +40,7 @@ export const style = {
     },
 
     wrapperLogin: {
-        height: 9/10 * hei,
+        height: 9.5/10 * hei,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: color.background,
@@ -89,6 +89,9 @@ export const style = {
     wrapperCenter: {
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    wrapperBottomLogin: {
+        height: hei * 0.05
     },
     wrapperNotificationCircle: {
         justifyContent: 'center',
@@ -825,7 +828,8 @@ export const style = {
     wrapperBackButtonAbsolute: {
         position: 'absolute',
         top: Platform.OS === 'ios' ? 20 : 0,
-        left:5
+        left:5,
+        backgroundColor: color.background
     },
     inputTheme: {
         fontSize: size.titleNormal,

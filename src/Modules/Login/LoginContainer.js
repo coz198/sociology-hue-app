@@ -34,11 +34,11 @@ class LoginContainer extends Component {
 
     signIn() {
         let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-        if (reg.test(this.props.login.email) == false) {
-            Alert.alert("Email không hợp lệ ")
-        }
-        else if (this.props.login.email == '' || this.props.login.password == '') {
-            Alert.alert("Bạn cần nhập đầy đủ thông tin ");
+
+        if (this.props.login.email == '' || this.props.login.password == '') {
+            Alert.alert("Có lỗi xảy ra", "Bạn cần nhập đầy đủ thông tin ");
+        } else if (reg.test(this.props.login.email) == false) {
+            Alert.alert("Có lỗi xảy ra", "Địa chỉ email không hợp lệ")
         } else {
             this.props.loginAction.loginUser(this.props.login);
             this.saveData();
@@ -115,29 +115,29 @@ class LoginContainer extends Component {
                             />
                         </Item>
                     </View>
-                        <View style={general.wrapperLoginButton}>
-                            <TouchableOpacity
-                                activeOpacity={1}
-                                style={general.buttonBuyNowFullSize}
-                                onPress={() => {
-                                    this.signIn()
-                                }}
-                            >
-                                {(this.props.isLoading) ? (
-                                    <ActivityIndicator
-                                        animated={true}
-                                        color={color.navTitle}
-                                        style={{
-                                            height: 20,
-                                        }}
-                                        size='small'
-                                    />
-                                ) : (
-                                    <Text style={[general.paddingRight, general.textBigLight]}>ĐĂNG NHẬP</Text>
-                                )
-                                }
-                            </TouchableOpacity>
-                        </View>
+                    <View style={general.wrapperLoginButton}>
+                        <TouchableOpacity
+                            activeOpacity={1}
+                            style={general.buttonBuyNowFullSize}
+                            onPress={() => {
+                                this.signIn()
+                            }}
+                        >
+                            {(this.props.isLoading) ? (
+                                <ActivityIndicator
+                                    animated={true}
+                                    color={color.navTitle}
+                                    style={{
+                                        height: 20,
+                                    }}
+                                    size='small'
+                                />
+                            ) : (
+                                <Text style={[general.paddingRight, general.textBigLight]}>ĐĂNG NHẬP</Text>
+                            )
+                            }
+                        </TouchableOpacity>
+                    </View>
 
                     <View style={{marginTop: 10, marginBottom: 10}}>
                         <Text style={general.textLogin}
@@ -145,7 +145,7 @@ class LoginContainer extends Component {
                     </View>
                 </View>
                 <TouchableOpacity
-                    style={[ general.wrapperCenter]}
+                    style={[general.wrapperBottomLogin, general.wrapperCenter]}
                     actionOpacity={1}
                     onPress={() => this.skipLogin()}
                 >

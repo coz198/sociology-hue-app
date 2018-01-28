@@ -2,6 +2,7 @@ import {Platform} from 'react-native';
 
 export const none = 'transparent';
 export const background = '#FFF';
+export const gray = 'gray';
 export const textColor = '#000000';
 export const iconColor = '#000000';
 export const mainColor  = '#c50000';

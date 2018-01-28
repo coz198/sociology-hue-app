@@ -96,7 +96,7 @@ class SurveyContainer extends Component {
                                             key={item.id}
                                             onPress={() => navigate('DetailSurvey', {data: item})}
                                             activeOpacity={1}
-                                            style={[general.marginBottom, general.paddingLR, general.marginBottomFar]}>
+                                            style={[general.paddingLR, general.marginBottomFar, general.paddingTop]}>
                                             <View style={[general.shadow, general.imageFeature]}>
                                                 <Image
                                                     style={[general.imageFeature]}

@@ -34,11 +34,11 @@ class RegisterContainer extends Component {
 
     register(value) {
         let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-        if (reg.test(this.state.email) == false) {
-            Alert.alert("Email không hợp lệ ")
-        }
-        else if (this.state.email === '' || this.state.name === '' || this.state.username === '' || this.state.password === '') {
+        if (this.state.email === '' || this.state.name === '' || this.state.username === '' || this.state.password === '') {
             Alert.alert('Có lỗi xảy ra', 'Bạn chưa nhập đủ thông tin.');
+        }
+        else if (reg.test(this.state.email) == false) {
+            Alert.alert("Có lỗi xảy ra", "Địa chỉ email không hợp lệ")
         }
         else {
             this.props.registerAction.registerUser(value);
@@ -51,8 +51,8 @@ class RegisterContainer extends Component {
 
     componentWillReceiveProps(nextProps) {
         const {navigate} = this.props.navigation;
-        if(this.props.status != nextProps.status){
-            let login = {"email" : this.state.email, "password" : this.state.password}
+        if (this.props.status != nextProps.status) {
+            let login = {"email": this.state.email, "password": this.state.password}
             this.props.loginAction.loginUser(login);
             this.saveData();
         }

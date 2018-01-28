@@ -30,7 +30,7 @@ export function registerUser(register){
                     }
                     ;
                 } else {
-                    Alert.alert('Kiểm tra lại kết nối mạng')
+                    Alert.alert("Có lỗi xảy ra", "Vui lòng kiểm tra lại kết nối mạng")
                 }
 
             })
