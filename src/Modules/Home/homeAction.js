@@ -12,6 +12,7 @@ export function getListBlog(page) {
                     type: types.GET_LIST_BLOG_SUCCESS,
                     blogs: res.data.blogs
                 });
+                console.log(res.data.blogs)
             })
             .catch(function (error) {
                 throw (error);
@@ -48,11 +49,13 @@ export function refreshListBlog() {
                     type: types.REFRESH_NEW_FEED_SUCCESS,
                     blogs: res.data.blogs,
                 });
+                console.log(res.data.blogs);
             })
             .catch(function (error) {
                 dispatch({
                     type: types.REFRESH_NEW_FEED_ERROR,
                 });
+                console.log("error")
             })
     }
 }

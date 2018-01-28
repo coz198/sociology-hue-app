@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -50,6 +51,7 @@
 		8F2E620D2738032967D0ADAD /* libPods-sociologyhue.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52FDC8039F8854752962F612 /* libPods-sociologyhue.a */; };
 		90E1A0D149A147149854D59B /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC33A7B147D84C3A83B4AD03 /* Feather.ttf */; };
 		995C3C5B18504E1B8A3EDB2B /* Montserrat-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EB38214807A64ABB9793C1FD /* Montserrat-LightItalic.ttf */; };
+		A7380D65201C530400FED930 /* CodePush.h in Frameworks */ = {isa = PBXBuildFile; fileRef = A7380D3B201C530300FED930 /* CodePush.h */; };
 		A9A62D7024F94F57959B9E5F /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77E39B8B48904F32A8C8FDDF /* Zocial.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		AF777FB0D93E4F87AD707F3B /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 00EF0085D7E34214BA95F4E0 /* FontAwesome.ttf */; };
@@ -427,6 +429,7 @@
 		9A72E84113C74DE7A4E0BA28 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-SemiBold.ttf"; path = "../assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		9B4A6420A21A4B2CBFD5CADA /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Medium.ttf"; path = "../assets/fonts/Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		A5E451F138944DA98BF5920F /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		A7380D3B201C530300FED930 /* CodePush.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CodePush.h; path = "../node_modules/react-native-code-push/ios/CodePush/CodePush.h"; sourceTree = "<group>"; };
 		A7981BE148E24DE09EF7CAC4 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
 		A873DA611F16439BBE5F0475 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		AC3124F4E47943CF9B54065D /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
@@ -455,6 +458,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7380D65201C530400FED930 /* CodePush.h in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -597,6 +601,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A7380D3B201C530300FED930 /* CodePush.h */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
 				52FDC8039F8854752962F612 /* libPods-sociologyhue.a */,
 				887A5CF741AB490282BE2978 /* libz.tbd */,

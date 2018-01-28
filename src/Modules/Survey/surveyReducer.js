@@ -48,7 +48,7 @@ export default function blogReducer(state = initialState.survey, action) {
                 }
             };
         case types.REFRESH_SURVEY_SUCCESS: {
-            let array1 = state.surveys.slice(0, 20);
+            let array1 = state.surveys;
             let array2 = action.surveys;
             let array3 = [];
             for (let i = 0; i < 21; i++) {
@@ -60,7 +60,7 @@ export default function blogReducer(state = initialState.survey, action) {
                 ...state,
                 ...{
                     isRefreshingSurvey: false,
-                    surveys: [array3, ...state.surveys]
+                    surveys: [...array3, ...state.surveys]
                 }
             }
         }
@@ -155,10 +155,10 @@ export default function blogReducer(state = initialState.survey, action) {
                 }
             };
         case types.REFRESH_HISTORY_SURVEY_SUCCESS: {
-            let array1 = state.historySurvey.slice(0, 20);
+            let array1 = state.historySurvey;
             let array2 = action.historySurvey;
             let array3 = [];
-            for (let i = 0; i < 21; i++) {
+            for (let i = 0; i < 20; i++) {
                 if (array2[i].id !== array1[i].id) {
                     array3.push(array2[i]);
                 }
@@ -167,7 +167,7 @@ export default function blogReducer(state = initialState.survey, action) {
                 ...state,
                 ...{
                     isRefreshingHistorySurvey: false,
-                    historySurvey: [array3, ...state.historySurvey]
+                    historySurvey: [...array3, ...state.historySurvey]
                 }
             }
         }

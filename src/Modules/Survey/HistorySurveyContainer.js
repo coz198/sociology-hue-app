@@ -58,6 +58,7 @@ class HistorySurveyContainer extends Component {
                     <TouchableOpacity
                         activeOpacity={1}
                         style={{flex: 1}}
+                        onPress={() => this.refs.listRef.scrollToOffset({x: 0, y: 0, animated: true})}
                     >
                         <Image
                             resizeMode={'contain'}
@@ -75,6 +76,7 @@ class HistorySurveyContainer extends Component {
                         <View style={{flex: 1}}>
                             <View style={{flex: 1, alignItems: 'center'}}>
                                 <FlatList
+                                    ref="listRef"
                                     showsVerticalScrollIndicator={false}
                                     data={this.state.historySurveyState}
                                     onEndReachedThreshold={5}

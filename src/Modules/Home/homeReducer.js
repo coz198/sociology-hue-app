@@ -57,10 +57,10 @@ export default function homeReducer(state = initialState.home, action) {
                 }
             };
         case types.REFRESH_NEW_FEED_SUCCESS: {
-            let array1 = state.blogs.slice(0, 6);
+            let array1 = state.blogs;
             let array2 = action.blogs;
             let array3 = [];
-            for (let i = 0; i < 7; i++) {
+            for (let i = 0; i < 6; i++) {
                 if (array2[i].id !== array1[i].id) {
                     array3.push(array2[i]);
                 }
@@ -69,7 +69,7 @@ export default function homeReducer(state = initialState.home, action) {
                 ...state,
                 ...{
                     isRefreshing: false,
-                    blogs: [array3, ...state.blogs]
+                    blogs: [...array3, ...state.blogs]
                 }
             }
         }

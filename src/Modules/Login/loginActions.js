@@ -44,6 +44,35 @@ export function loginUser(login) {
 }
 
 
+export function loginUserAuto(login) {
+    return function (dispatch) {
+        dispatch({
+            type: types.BEGIN_LOGIN,
+            isLoading: true,
+        });
+        loginApi.login(login)
+            .then(function (response) {
+                dispatch({
+                    type: types.LOGIN_SUCCESS,
+                    isLoading: false,
+                    token: response.data.token,
+                    status: response.status,
+                    user: response.data.user,
+                    loginStatus: true,
+                });
+                console.log(response.data.user)
+            })
+            .catch(function (error) {
+                dispatch({
+                    type: types.LOGIN_ERROR,
+                    isLoading: false,
+                    error: true,
+                });
+            })
+    }
+}
+
+
 export function updateDataLogin(login) { // ham na update vao bo nho cac gia tri nhap vao de login
     return {
         type: types.UPDATE_DATA_LOGIN,
@@ -108,7 +137,7 @@ export function autoLogin(login, status) {
         AsyncStorage.getItem('@ColorMe:save').then(async function () {
             let value = await AsyncStorage.getItem('@ColorMe:save');
             if (login && status == 0 && value) {
-                dispatch(loginUser(login))
+                dispatch(loginUserAuto(login))
             }
         })
     }
