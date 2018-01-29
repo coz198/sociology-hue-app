@@ -5,7 +5,7 @@ import {AsyncStorage} from 'react-native'
 export function logout() {
     return async function (dispatch) {
         try {
-            await AsyncStorage.removeItem('@ColorMe:email')
+            await AsyncStorage.removeItem('@ColorMe:save')
             dispatch({
                 type: types.LOGOUT,
                 status: 1,

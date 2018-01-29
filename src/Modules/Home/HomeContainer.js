@@ -1,5 +1,17 @@
 import React, {Component} from 'react';
-import {AsyncStorage, FlatList, Image, RefreshControl, Text, TouchableOpacity, View, Platform, Animated, Easing, Keyboard} from 'react-native';
+import {
+    AsyncStorage,
+    FlatList,
+    Image,
+    RefreshControl,
+    Text,
+    TouchableOpacity,
+    View,
+    Platform,
+    Animated,
+    Easing,
+    Keyboard
+} from 'react-native';
 import {Container, Content, Item, Left, Right, Button, Input} from 'native-base';
 import SearchButton from '../../Commons/SearchButton';
 import Loading from '../../Commons/Loading';
@@ -25,9 +37,18 @@ class HomeContainer extends Component {
 
     componentWillMount() {
         this.props.homeAction.getListBlog(1);
-
     }
-    componentDidMount(){
+
+    componentWillReceiveProps(nextProps) {
+        this.props.blogs = this.props.blogs.map((item, i) => {
+            return {
+                ...item,
+                index: i
+            }
+        })
+    }
+
+    componentDidMount() {
         this.props.loginAction.getDataLogin(this.props.status);
     }
 
@@ -42,7 +63,7 @@ class HomeContainer extends Component {
 
     toggleSearch() {
         const {showSearch, searchMove} = this.state;
-        if(showSearch == false){
+        if (showSearch == false) {
             this.setState({showSearch: true})
             Animated.timing(
                 searchMove,
@@ -66,12 +87,14 @@ class HomeContainer extends Component {
 
 
     // SEARCH FUNCTION
-    search(page, text){
+    search(page, text) {
         this.props.homeAction.searchBlog(page, text);
     }
+
     changeSearch() {
         this.props.homeAction.changeValueSearch();
     }
+
     searchHaveTimeout(value) {
         this.setState({
             page: 1,
@@ -85,6 +108,7 @@ class HomeContainer extends Component {
             this.search(1, this.state.txtSearch);
         }.bind(this), 500)
     }
+
     // END SEARCH FUNCTION
 
     loadMore() {
@@ -104,7 +128,7 @@ class HomeContainer extends Component {
                     <TouchableOpacity
                         activeOpacity={1}
                         style={{flex: 1}}
-                        onPress={() => this.refs.listRef.scrollToOffset({x: 0, y: 0, animated: true})}
+                        onPress={() => isLoading ? {} : this.refs.listRef.scrollToOffset({x: 0, y: 0, animated: true})}
                     >
                         <Image
                             resizeMode={'contain'}
@@ -115,14 +139,14 @@ class HomeContainer extends Component {
                     <HamburgerButton navigate={navigate}/>
                 </View>
                 <Animated.View>
-                    <Item regular style={[general.marginLR, general.marginBottom, general.wrapperSearch,{top}]}>
+                    <Item regular style={[general.marginLR, general.marginBottom, general.wrapperSearch, {top}]}>
                         <Input
                             style={general.textDescriptionCard}
                             returnKeyType={'search'}
                             onChangeText={(txtSearch) => {
                                 this.searchHaveTimeout(txtSearch);
                             }}
-                            placeholder='Tìm kiếm' />
+                            placeholder='Tìm kiếm'/>
                         <TouchableOpacity style={general.buttonSearchInSearchInput}
                                           onPress={() => this.search(1, this.state.txtSearch)}>
                             <Icon
@@ -140,60 +164,61 @@ class HomeContainer extends Component {
                             <Loading/>
                             :
                             blogs.length != 0
-                            ?
-                            <FlatList
-                                ref="listRef"
-                                showsVerticalScrollIndicator={false}
-                                data={blogs}
-                                onEndReachedThreshold={5}
-                                onEndReached={
-                                    () => this.getMoreListBlog()
-                                }
-                                refreshControl={
-                                    <RefreshControl
-                                        refreshing={isRefreshing}
-                                        onRefresh={
-                                            () => this.props.homeAction.refreshListBlog()
-                                        }
-                                    />
-                                }
-                                ListFooterComponent={
-                                    this.loadMore()
-                                }
-                                renderItem={({item}) =>
-                                    <TouchableOpacity
-                                        key={item.id}
-                                        onPress={() => navigate('BlogContainer', {id : item.id})}
-                                        activeOpacity={0.9}
-                                        style={[general.marginTopBottom, general.paddingLR, {marginBottom: 20}]}>
-                                        <View style={[general.shadow,general.imageFeature]}>
-                                            <Image
-                                                borderRadius={Platform.OS === 'android' ? 15 : null}
-                                                resizeMode={'cover'}
-                                                source={{uri: 'http://' + item.url}}
-                                                style={[general.imageFeature]}
-                                            />
-                                            <Text style={[general.categoryInImage, general.textDescriptionCardLight]}>
-                                                {item.category ? item.category.name : 'Category'}
-                                            </Text>
-                                        </View>
+                                ?
+                                <FlatList
+                                    ref="listRef"
+                                    showsVerticalScrollIndicator={false}
+                                    data={blogs}
+                                    onEndReachedThreshold={5}
+                                    onEndReached={
+                                        () => this.getMoreListBlog()
+                                    }
+                                    refreshControl={
+                                        <RefreshControl
+                                            refreshing={isRefreshing}
+                                            onRefresh={
+                                                () => this.props.homeAction.refreshListBlog()
+                                            }
+                                        />
+                                    }
+                                    ListFooterComponent={
+                                        this.loadMore()
+                                    }
+                                    renderItem={({item}) =>
+                                        <TouchableOpacity
+                                            key={item.id}
+                                            onPress={() => navigate('BlogContainer', {id: item.id})}
+                                            activeOpacity={1}
+                                            style={[general.marginTopBottom, general.paddingLR, {marginBottom: 20}]}>
+                                            <View style={[general.shadow, general.imageFeature]}>
+                                                <Image
+                                                    borderRadius={Platform.OS === 'android' ? 15 : null}
+                                                    resizeMode={'cover'}
+                                                    source={{uri: 'http://' + item.url}}
+                                                    style={[general.imageFeature]}
+                                                />
+                                                <Text
+                                                    style={[general.categoryInImage, general.textDescriptionCardLight]}>
+                                                    {item.category ? item.category.name : 'Category'}
+                                                </Text>
+                                            </View>
 
 
-                                        <View style={{marginTop: 20}}>
-                                            <Text
-                                                style={general.textTitleCard}>{item.title.toUpperCase().trim()}</Text>
-                                            <Text
-                                                style={[general.textDescriptionCard, general.paddingLine]}>{item.description}</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                }
-                            />
-                            :
-                            <View style={[general.wrapperCenter, general.paddingLR]}>
-                                <Text style={[general.textTitleCard, general.marginTop, {textAlign: 'center'}]}>
-                                    Không tìm thấy kết quả nào cho "{this.state.txtSearch}".
-                                </Text>
-                            </View>
+                                            <View style={{marginTop: 20}}>
+                                                <Text
+                                                    style={general.textTitleCard}>{item.title.toUpperCase().trim()}</Text>
+                                                <Text
+                                                    style={[general.textDescriptionCard, general.paddingLine]}>{item.description}</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    }
+                                />
+                                :
+                                <View style={[general.wrapperCenter, general.paddingLR]}>
+                                    <Text style={[general.textTitleCard, general.marginTop, {textAlign: 'center'}]}>
+                                        Không tìm thấy kết quả nào cho "{this.state.txtSearch}".
+                                    </Text>
+                                </View>
                     }
                 </View>
                 <SearchButton function={() => this.toggleSearch()}/>

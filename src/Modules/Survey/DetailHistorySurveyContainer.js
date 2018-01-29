@@ -97,7 +97,7 @@ class DetailHistorySurveyContainer extends Component {
                         </View>
                     )}
                     renderForeground={() => (
-                        <View key="parallax-header" style={[parallaxStyle.parallaxHeaderTitle]}>
+                        <View key="parallax-header" style={[parallaxStyle.parallaxHeaderTitle, {alignItems: 'flex-start',}]}>
                             <View style={general.paddingLR}>
                                 <Text numberOfLines={2}
                                     style={[general.textTitleBig, general.marginBottom]}>{historyAnswerQuestion.survey.name.toUpperCase()}</Text>

@@ -111,7 +111,6 @@ export const style = {
         width: wid * 3 / 4 - 20,
         height: hei / 3,
         justifyContent: 'center',
-        alignItems: 'center',
     },
     imageInDrawer: {
         width: hei/wid > 1.6 ? (0.75*wid) / 1.5  : (0.75*wid) / 2,
@@ -278,7 +277,7 @@ export const style = {
     },
     textNameCard: {
         color: color.gray,
-        fontFamily: 'Montserrat-Bold',
+        fontFamily: 'Montserrat-Regular',
         fontSize: size.titleNormal,
         backgroundColor: color.none,
     },

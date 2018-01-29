@@ -31,9 +31,8 @@ class HistorySurveyContainer extends Component {
             this.setState({page: page});
             surveyAction.getMoreHistorySurvey(page, token);
         }
-        console.log('rerrerere')
-
     }
+
     componentWillReceiveProps(nextProps) {
         const newArr = this.props.historySurvey.map((item, i)=>{
             return{
@@ -43,12 +42,14 @@ class HistorySurveyContainer extends Component {
         })
         this.setState({historySurveyState: newArr})
     }
+
     loadMore() {
         if (this.props.isLoadingMoreHistorySurvey)
             return (<Loading/>)
         else
             return (<View/>)
     }
+
     render() {
         const {navigate} = this.props.navigation;
         const {user, isLoadingHistorySurvey, historySurvey, isRefreshingHistorySurvey} = this.props;
@@ -58,7 +59,7 @@ class HistorySurveyContainer extends Component {
                     <TouchableOpacity
                         activeOpacity={1}
                         style={{flex: 1}}
-                        onPress={() => this.refs.listRef.scrollToOffset({x: 0, y: 0, animated: true})}
+                        onPress={() => isLoadingHistorySurvey ? {} : this.refs.listRef.scrollToOffset({x: 0, y: 0, animated: true})}
                     >
                         <Image
                             resizeMode={'contain'}

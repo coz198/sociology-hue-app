@@ -30,7 +30,7 @@ class DrawerContainer extends Component {
                     backgroundColor={'#FFF'}
                 />
                 <Content style={general.padding}>
-                    <View style={[general.wrapperLogoInDrawer]}>
+                    <View style={[general.wrapperLogoInDrawer, general.paddingLR]}>
                         <Image resizeMode={'contain'}
                                source={require('../../../assets/image/logo.png')}
                                style={[general.imageInDrawer]}
@@ -46,11 +46,7 @@ class DrawerContainer extends Component {
                     >
                         <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Thư viện</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => navigate('Rule')}
-                    >
-                        <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Điều khoản</Text>
-                    </TouchableOpacity>
+
                     {
                         this.props.loginStatus == true
                             ?
@@ -84,11 +80,17 @@ class DrawerContainer extends Component {
                             <View/>
                     }
                     <TouchableOpacity
+                        onPress={() => navigate('Rule')}
+                    >
+                        <Text style={[general.textTitleCard, general.padding, general.paddingLR]}>Điều khoản</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
                         onPress={() => this.logout()}
                     >
                         <Text
                             style={[general.textTitleCard, general.padding, general.paddingLR]}>{this.props.loginStatus == true ? 'Đăng xuất' : 'Đăng nhập'}</Text>
                     </TouchableOpacity>
+
                     <View style={general.wrapperBottomModule}/>
                 </Content>
             </Container>

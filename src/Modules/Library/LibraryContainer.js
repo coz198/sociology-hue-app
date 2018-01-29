@@ -121,7 +121,7 @@ class LibraryContainer extends Component {
                     <TouchableOpacity
                         activeOpacity={1}
                         style={{flex: 1}}
-                        onPress={() => this.refs.listRef.scrollToOffset({x: 0, y: 0, animated: true})}
+                        onPress={() => isLoading ? {} : this.refs.listRef.scrollToOffset({x: 0, y: 0, animated: true})}
                     >
                         <Image
                             resizeMode={'contain'}
